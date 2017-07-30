@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Countrie;
-use Illuminate\Contracts\Validation\Validator;
-class CountrieController extends Controller
+
+class ServerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,7 @@ class CountrieController extends Controller
     public function index()
     {
         //
-        return view('countrie.index');
+        return view('main');
     }
 
     /**
@@ -37,28 +36,6 @@ class CountrieController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request, [
-        'name' => 'required|unique:countries|max:60',
-        'image' => 'required',
-        ]);
-
-        $validator = Validator::make($data, $rules);
-
-        $countrie = new Countrie;
-        $countrie->name = $request->name;
-        $countrie->image = $request->image;
-        $countrie->image_code = 1;
-        $countrie->premium  = 1;
-        $countrie->sort = 1;
-        $countrie->active = 1;
-        $countrie->image_code = 1;
-        $countrie->save();
-
-        $data['error'] = false;
-        $data['name'] = $request->name;
-        $data['image'] = $request->image;
-        
-        return response()->json($data);
     }
 
     /**
@@ -81,7 +58,6 @@ class CountrieController extends Controller
     public function edit($id)
     {
         //
-        return view('countrie.edit');
     }
 
     /**

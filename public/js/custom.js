@@ -114,8 +114,6 @@ $MENU_TOGGLE.on('click', function() {
 	$BODY.toggleClass('nav-md nav-sm');
 
 	setContentHeight();
-
-	$('.dataTable').each ( function () { $(this).dataTable().fnDraw(); });
 });
 
 	// check active menu
@@ -192,18 +190,7 @@ if ($(".progress .progress-bar")[0]) {
 }
 // /Progressbar
 
-// Switchery
-$(document).ready(function() {
-    if ($(".js-switch")[0]) {
-        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-        elems.forEach(function (html) {
-            var switchery = new Switchery(html, {
-                color: '#26B99A'
-            });
-        });
-    }
-});
-// /Switchery
+
 
 
 // iCheck
@@ -243,7 +230,9 @@ $('.bulk_action input').on('ifUnchecked', function () {
     $(this).parent().parent().parent().removeClass('selected');
     countChecked();
 });
+
 $('.bulk_action input#check-all').on('ifChecked', function () {
+	//alert("hi");
     checkState = 'all';
     countChecked();
 });
@@ -254,22 +243,22 @@ $('.bulk_action input#check-all').on('ifUnchecked', function () {
 
 function countChecked() {
     if (checkState === 'all') {
-        $(".bulk_action input[name='table_records']").iCheck('check');
+        $(".bulk_action input[name='table_records[]']").iCheck('check');
     }
     if (checkState === 'none') {
-        $(".bulk_action input[name='table_records']").iCheck('uncheck');
+        $(".bulk_action input[name='table_records[]']").iCheck('uncheck');
     }
 
-    var checkCount = $(".bulk_action input[name='table_records']:checked").length;
-
-    if (checkCount) {
-        $('.column-title').hide();
-        $('.bulk-actions').show();
-        $('.action-cnt').html(checkCount + ' Records Selected');
-    } else {
-        $('.column-title').show();
-        $('.bulk-actions').hide();
+    var checkCount = $(".bulk_action input[name='table_records[]']:checked").length;
+    if (checkCount > 0) {
+        $('.toolbaraction').html(checkCount + ' Records Selected');
+		$('.toolbaraction').show();
     }
+	else {
+		$('.toolbaraction').hide();
+	}
+	
+
 }
 
 
@@ -953,7 +942,7 @@ if (typeof NProgress != 'undefined') {
 		};  
 	   
 	   /* PARSLEY */
-			
+		
 		function init_parsley() {
 			
 			if( typeof (parsley) === 'undefined'){ return; }
@@ -1825,10 +1814,30 @@ if (typeof NProgress != 'undefined') {
         // evaluate the form using generic validaing
         if (!validator.checkAll($(this))) {
           submit = false;
+		  	new PNotify({
+			  title: "PNotify",
+			  type: "error",
+			  text: "error",
+			  hide: true,
+			  styling: 'bootstrap3',
+			  delay:1000
+			});
         }
 
-        if (submit)
-          this.submit();
+        if (submit) {
+			var str = $(this ).serialize();
+			
+			new PNotify({
+			  title: "PNotify",
+			  type: "success",
+			  text: "Success",
+			  hide: true,
+			  styling: 'bootstrap3',
+			  delay:1000
+			});
+			
+			//this.submit();
+		}
 
         return false;
 		});
@@ -1842,27 +1851,7 @@ if (typeof NProgress != 'undefined') {
 			if( typeof (PNotify) === 'undefined'){ return; }
 			console.log('init_PNotify');
 			
-			new PNotify({
-			  title: "PNotify",
-			  type: "info",
-			  text: "Welcome. Try hovering over me. You can click things behind me, because I'm non-blocking.",
-			  nonblock: {
-				  nonblock: true
-			  },
-			  addclass: 'dark',
-			  styling: 'bootstrap3',
-			  hide: false,
-			  before_close: function(PNotify) {
-				PNotify.update({
-				  title: PNotify.options.title + " - Enjoy your Stay",
-				  before_close: null
-				});
 
-				PNotify.queueRemove();
-
-				return false;
-			  }
-			});
 
 		}; 
 	   
@@ -2514,8 +2503,15 @@ if (typeof NProgress != 'undefined') {
 				
 				var handleDataTableButtons = function() {
 				  if ($("#datatable-buttons").length) {
-					$("#datatable-buttons").DataTable({
-					  dom: "Bfrtip",
+					
+					$('#datatable-buttons thead td').each( function () {
+					var title = $(this).text();
+					$(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
+					} );
+					
+					var table = $("#datatable-buttons").DataTable({
+					  dom: "<Bf<t>lp>",
+					  "JQueryUI": true,
 					  buttons: [
 						{
 						  extend: "copy",
@@ -2538,8 +2534,17 @@ if (typeof NProgress != 'undefined') {
 						  className: "btn-sm"
 						},
 					  ],
-					  responsive: true
+					  responsive: false
 					});
+					
+					// Apply the search
+					$("#datatable-buttons thead input").on( 'keyup change', function () {
+							table
+								.column( $(this).parent().index()+':visible' )
+								.search( this.value )
+								.draw();
+					});
+					
 				  }
 				};
 

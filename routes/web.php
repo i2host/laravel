@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('index');
 });
+
+
+Route::resource('/countries', 'CountrieController');
+Route::resource('/servers', 'ServerController');
