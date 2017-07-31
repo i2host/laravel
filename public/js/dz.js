@@ -21,7 +21,7 @@ table.on('draw.dt', function() {
 Edit,Copy,Delete,members,teams,details found in folder forms under names , edit.js.php > copy.js.php > delete.js.php > members.js.php > teams.js.php > details.js.php
 */
 var addform = $('#addformvalid');
-var formfile = addform.attr("action");
+var formfile = $("input[name='baseurl']").val();
 addform.parsley().on('field:validated', function() {
 })
 .on('form:submit', function() {
@@ -42,159 +42,52 @@ function submitforms(str="",type="",formfile="") {
 	  dataType: "html"
 	})
 	.done(function( msg ) {
-		alert(msg);
-		
-	if (type == "add" || type == "copy" || type == "edit" || type == "multiedit") {
-		if (type == "add" || type == "copy") {
-			statusarr = msg.split("[||]");
-			if (statusarr[0] == "Complete") {
-			var rows = statusarr[2];
-			var aRow = $("<tr>").attr({"data-file":formfile , "data-pharse":"id="+statusarr[1]}).append(rows);
+		//alert(msg);
+	var respond = JSON.parse(msg);
+
+	if (respond.success) {
+		if (respond.type == "Add" ) {
+			var rows = respond.htmldata;
+			var aRow = $("<tr>").attr({"data-pharse":respond.id}).append(rows);
 				table.row.add(aRow).draw();
-			}
-			if (type != "copy") {
-				actiondone = "Add";
-			}
-			else {
-				actiondone = "Copy";
-				$('#copymodal').modal('hide');
-			}
 		}
-		
-		if (type == "edit") {
-			statusarr = msg.split("[||]");
-			if (statusarr[0] == "Complete") {
-				//alert(msg);
-				var cellsdata = statusarr[2].split("||||");
-				
+		if (respond.type == "Edit" ) {
+			var cellsdata = respond.htmldata;
 				$(".editrow td").each(function(i, obj) {
 					table.cell(this).data(cellsdata[i]);
 				});
-				
-				
-
 				$('#editmodal').modal('hide');
-			}
-			actiondone = "Edit";
-		}
-		
-		if (type == "multiedit") {
-			statusarr = msg.split("[||]");
-			if (statusarr[0] == "Complete") {
-				var place = statusarr[1];
-				$(':checkbox:checked').each(function(i){
-					if ($(this).val() != "dontcount") {
-						table.cell($(this).parents('tr').children('td:eq('+place+')')).data( statusarr[2] ).draw();
-					}
-				});
-				$('#multieditmodal').modal('hide');
-			}
-			actiondone = "Multi Edit";
-		}
-		
-		if (statusarr[0] == "Complete") {
-			new PNotify({
-				title: actiondone+" Status",
-				type: "success",
-				text: " Action Complete Successfully",
-				hide: true,
-				styling: 'bootstrap3',
-				delay:1000
-			});
-		}
-	}
-
-		if (type == "member") {
-			if (msg == "Complete") {
-				
-			}
-			actiondone = "Member";
-		}
-
-		if (type == "team") {
-			if (msg == "Complete") {
-				
-			}
-			actiondone = "Team";
-		}
-		
-		if (type == "details") {
-			if (msg == "Complete") {
-				
-			}
-			actiondone = "Details Change";
-		}
-		
-		if (type == "delete") {
-			if (msg == "Complete") {
+		}	
+		if (respond.type == "Delete") {
 				table
 				.rows( '.deleterow' )
 				.remove()
 				.draw();
 				$('#deletemodal').modal('hide');
-			}
-			actiondone = "Delete";
 		}
 		
-		if (type == "restore") {
-			if (msg == "Complete") {
-				table
-				.rows( '.restorerow' )
-				.remove()
-				.draw();
-				$('#restoremodal').modal('hide');
-			}
-			actiondone = "Restore";
-		}
-		
-		if (type == "multidelete") {
-			if (msg == "Complete") {
-				$(':checkbox:checked').each(function(i){
-					if ($(this).val() != "dontcount") {
-						table.row($(this).parents('tr')).remove().draw(false);
-					}
-					
-				});
-				$('#multideletemodal').modal('hide');
-			}
-			actiondone = "Multi Delete";
-		}
-		
-		if (msg == "Complete") {
-			new PNotify({
-				title: actiondone+" Status",
-				type: "success",
-				text: " Action Complete Successfully",
-				hide: true,
-				styling: 'bootstrap3',
-				delay:1000
-			});
-		
-		}
-		
-		if (msg == "Errorspermission") {
-			
-			new PNotify({
-				title: actiondone+" Status",
-				type: "error",
-				text: "You haven't permissions for multi delete, you can delete with context menu.",
-				hide: true,
-				styling: 'bootstrap3',
-				delay:5000
-			});
-		}
-		
-		if (msg == "Errors") {
-			new PNotify({
-				title: actiondone+" Status",
-				type: "error",
-				text: "Action Not Complete Error With Database <br> "+msg,
-				hide: true,
-				styling: 'bootstrap3',
-				delay:5000
-			});
-		}
 
+		new PNotify({
+			title: respond.type+" Status",
+			type: "success",
+			text: " Action Complete Successfully",
+			hide: true,
+			styling: 'bootstrap3',
+			delay:1000
+		});
+	}
+	else {
+		new PNotify({
+			title: respond.type+" Status",
+			type: "error",
+			text: "Action Not Complete Error With Database",
+			hide: true,
+			styling: 'bootstrap3',
+			delay:5000
+		});
+	}
+
+		
 
 		
 	})

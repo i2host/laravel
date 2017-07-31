@@ -66,4 +66,5 @@
         <!-- /footer content -->
       </div>
     </div>
+    <input type="hidden" name="baseurl" value="{{ url()->current() }}"> 
     @include('includes.footer')

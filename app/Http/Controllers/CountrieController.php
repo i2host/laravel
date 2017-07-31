@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Countrie;
-use Illuminate\Contracts\Validation\Validator;
+use Custom;
+use Validator;
 class CountrieController extends Controller
 {
     /**
@@ -15,7 +16,9 @@ class CountrieController extends Controller
     public function index()
     {
         //
-        return view('countrie.index');
+        $countries = Countrie::all();
+        $datas['datas'] = $countries;
+        return view('countrie.index',$datas['datas']);
     }
 
     /**
@@ -28,6 +31,28 @@ class CountrieController extends Controller
         //
     }
 
+
+
+    public function rules()
+    {
+        return [
+            'name' => 'required|unique:countries|max:60',
+            'image' => 'required',
+            'image_code' => 'required',
+            'premium' => 'required',
+        ];
+    }
+
+    public function lastsort() {
+        $lastsort = new Countrie;
+        $lastsort = $lastsort::orderBy('sort', 'desc')->take(1)->get();
+        if (sizeof($lastsort) == 0)
+        $lastsort = 1;
+        else 
+        $lastsort = $lastsort[0]->sort + 1;
+        return $lastsort;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -36,29 +61,38 @@ class CountrieController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $this->validate($request, [
-        'name' => 'required|unique:countries|max:60',
-        'image' => 'required',
-        ]);
-
-        $validator = Validator::make($data, $rules);
-
+        $validator = Validator::make($request->all(), $this->rules());
+        if ($validator->fails()) {
+            $data['success'] = false;
+            $data['type'] = 'Add';
+            $data['messages'] = $validator->errors();
+            return response()->json($data);
+        }
+        else {
+        $sort = $this->lastsort();
         $countrie = new Countrie;
         $countrie->name = $request->name;
         $countrie->image = $request->image;
-        $countrie->image_code = 1;
-        $countrie->premium  = 1;
-        $countrie->sort = 1;
-        $countrie->active = 1;
-        $countrie->image_code = 1;
+        $countrie->image_code = $request->image_code;
+        $countrie->sort = $sort;
+        $countrie->premium  = $request->premium;
+        $countrie->active = 0;
         $countrie->save();
 
-        $data['error'] = false;
-        $data['name'] = $request->name;
-        $data['image'] = $request->image;
-        
+        $htmldata[] = $countrie->name;
+        $htmldata[] = $countrie->image;
+        $htmldata[] = $countrie->image_code;
+        $htmldata[] = $countrie->sort;
+        $htmldata[] = ($countrie->premium) ? 'Yes' : 'No';
+        $htmldata[] = ($countrie->active) ? 'Active' : 'Inactive';
+
+        $custom = new Custom;
+        $data['success'] = true;
+        $data['type'] = 'Add';
+        $data['id'] = $countrie->id;
+        $data['htmldata'] = $custom->htmldata($htmldata,$countrie->id);
         return response()->json($data);
+        }
     }
 
     /**
@@ -70,6 +104,8 @@ class CountrieController extends Controller
     public function show($id)
     {
         //
+        $data = Countrie::find($id);
+        return view('countrie.delete',$data);
     }
 
     /**
@@ -81,7 +117,8 @@ class CountrieController extends Controller
     public function edit($id)
     {
         //
-        return view('countrie.edit');
+        $countrie = Countrie::find($id);
+        return view('countrie.edit',$countrie);
     }
 
     /**
@@ -94,6 +131,39 @@ class CountrieController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $validator = Validator::make($request->all(), $this->rules());
+        if ($validator->fails()) {
+            $data['success'] = false;
+            $data['type'] = 'Edit';
+            $data['messages'] = $validator->errors();
+            return response()->json($data);
+        }
+        else {
+            $countrie = Countrie::find($id);
+            $countrie->name = $request->name;
+            $countrie->image = $request->image;
+            $countrie->image_code = $request->image_code;
+            $countrie->sort  = $request->sort;
+            $countrie->premium  = $request->premium;
+            $countrie->active  = $request->active;
+            $countrie->save();
+
+            $custom = new Custom;
+            $htmldata[] = $custom->htmldata("",$countrie->id,'edit');
+            $htmldata[] = $countrie->name;
+            $htmldata[] = $countrie->image;
+            $htmldata[] = $countrie->image_code;
+            $htmldata[] = $countrie->sort;
+            $htmldata[] = ($countrie->premium) ? 'Yes' : 'No';
+            $htmldata[] = ($countrie->active) ? 'Active' : 'Inactive';
+
+            
+            $data['success'] = true;
+            $data['type'] = 'Edit';
+            $data['id'] = $countrie->id;
+            $data['htmldata'] = $htmldata;
+            return response()->json($data);
+        }
     }
 
     /**
@@ -105,5 +175,11 @@ class CountrieController extends Controller
     public function destroy($id)
     {
         //
+        $countrie = Countrie::findOrFail($id);
+        $countrie->delete();
+
+        $data['success'] = true;
+        $data['type'] = 'Delete';
+        return response()->json($data);
     }
 }

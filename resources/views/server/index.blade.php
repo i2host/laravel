@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title','| Countries')
+@section('title','| Servers')
 
 @section('main_content')
           <div class="">
@@ -48,15 +48,20 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
-                            <label for="shortcode">Image * :</label>
-                            <input type="text" id="image" class="form-control" name="image" required placeholder="Image">
+                            <label for="shortcode">File * :</label>
+                            <input type="text" id="file" class="form-control" name="file" required placeholder="Image">
                             </div>
                         </div>
 
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
-                            <label for="name">Image Code * :</label>
-                            <input type="text" id="name" class="form-control" name="image_code" required placeholder="Image Code">
+                            <label for="name">Country * :</label>
+                            <select name="countrie_id" class="form-control">
+                                <option value="">Select</option>
+                                @foreach ($countries as $countrie)
+                                <option value="{{ $countrie->id }}">{{ $countrie->name }}</option>
+                                @endforeach
+                            </select>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -101,8 +106,8 @@
                     <tr>
                         <th style="width:25px;"><input type="checkbox" name="c1" value="dontcount" id="check-all" class="flat"></th>
                         <th>Name</th>
-                        <th>Image</th>
-                        <th>Image Code</th>
+                        <th>File</th>
+                        <th>Country</th>
                         <th>Sort</th>
                         <th>Premium</th>
                         <th>Active</th>
@@ -112,8 +117,8 @@
                     <tr>
                         <td id="nosearch"></td>
                         <td>Name</td>
-                        <td>Image</td>
-                        <td>Image Code</td>
+                        <td>File</td>
+                        <td>Country</td>
                         <td>Sort</td>
                         <td>Premium</td>
                         <td>Active</td>
@@ -127,8 +132,8 @@
                             <input value="{{ $data->id }}" type="checkbox" name="table_records[]" class="flat">
                         </td>
                         <td>{{ $data->name }}</td>
-                        <td>{{ $data->image }}</td>
-                        <td>{{ $data->image_code }}</td>
+                        <td>{{ $data->file }}</td>
+                        <td>{{ $data->Countrie->name }}</td>
                         <td>{{ $data->sort }}</td>
                         <td>{{ $data->premium === 1 ? 'Yes' : 'No' }}</td>
                         <td>{{ $data->active === 1 ? 'Active' : 'Inactive'}}</td>
