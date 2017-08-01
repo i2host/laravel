@@ -18,8 +18,8 @@ class CreateCountriesTable extends Migration
             $table->string('name','60');
             $table->string('image','120');
             $table->string('image_code','60');
-            $table->tinyInteger('premium');
             $table->integer('sort');
+			$table->tinyInteger('premium');
             $table->tinyInteger('active');
             $table->timestamps();
         });

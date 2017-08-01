@@ -18,7 +18,7 @@ class CountrieController extends Controller
         //
         $countries = Countrie::all();
         $datas['datas'] = $countries;
-        return view('countrie.index',$datas['datas']);
+        return view('countrie.index',$datas);
     }
 
     /**
@@ -37,6 +37,16 @@ class CountrieController extends Controller
     {
         return [
             'name' => 'required|unique:countries|max:60',
+            'image' => 'required',
+            'image_code' => 'required',
+            'premium' => 'required',
+        ];
+    }
+
+    public function rulesedit()
+    {
+        return [
+            'name' => 'required|max:60',
             'image' => 'required',
             'image_code' => 'required',
             'premium' => 'required',
@@ -104,8 +114,9 @@ class CountrieController extends Controller
     public function show($id)
     {
         //
-        $data = Countrie::find($id);
-        return view('countrie.delete',$data);
+        $countrie = Countrie::find($id);
+        $datas['data'] = $countrie;
+        return view('countrie.delete',$datas);
     }
 
     /**
@@ -118,7 +129,8 @@ class CountrieController extends Controller
     {
         //
         $countrie = Countrie::find($id);
-        return view('countrie.edit',$countrie);
+        $datas['data'] = $countrie;
+        return view('countrie.edit',$datas);
     }
 
     /**
@@ -131,7 +143,7 @@ class CountrieController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $validator = Validator::make($request->all(), $this->rules());
+        $validator = Validator::make($request->all(), $this->rulesedit());
         if ($validator->fails()) {
             $data['success'] = false;
             $data['type'] = 'Edit';

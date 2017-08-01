@@ -18,9 +18,9 @@ class CreateServersTable extends Migration
             $table->integer('countrie_id');
             $table->string('name','60');
             $table->string('file','60');
-            $table->tinyInteger('premium');
             $table->integer('sort');
             $table->tinyInteger('active');
+			$table->tinyInteger('premium');
             $table->timestamps();
         });
     }

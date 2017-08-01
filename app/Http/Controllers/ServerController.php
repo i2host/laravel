@@ -44,6 +44,16 @@ class ServerController extends Controller
         ];
     }
 
+    public function rulesedit()
+    {
+        return [
+            'name' => 'required|max:60',
+            'file' => 'required',
+            'countrie_id' => 'required',
+            'premium' => 'required',
+        ];
+    }
+
     public function lastsort() {
         $lastsort = new Server;
         $lastsort = $lastsort::orderBy('sort', 'desc')->take(1)->get();
@@ -106,6 +116,9 @@ class ServerController extends Controller
     public function show($id)
     {
         //
+        $server = Server::find($id);
+        $datas['data'] = $server;
+        return view('server.delete',$datas);
     }
 
     /**
@@ -117,6 +130,11 @@ class ServerController extends Controller
     public function edit($id)
     {
         //
+        $server = Server::find($id);
+        $Countires = Countrie::all();
+        $datas['data'] = $server;
+        $datas['countries'] = $Countires;
+        return view('server.edit',$datas);
     }
 
     /**
@@ -129,6 +147,41 @@ class ServerController extends Controller
     public function update(Request $request, $id)
     {
         //
+        //
+        $validator = Validator::make($request->all(), $this->rulesedit());
+        if ($validator->fails()) {
+            $data['success'] = false;
+            $data['type'] = 'Edit';
+            $data['messages'] = $validator->errors();
+            return response()->json($data);
+        }
+        else {
+            $server = Server::find($id);
+            $server->name = $request->name;
+            $server->file = $request->file;
+            $server->countrie_id = $request->countrie_id;
+            $server->sort  = $request->sort;
+            $server->premium  = $request->premium;
+            $server->active  = $request->active;
+            $server->save();
+
+            $custom = new Custom;
+            $htmldata[] = $custom->htmldata("",$server->id,'edit');
+            $htmldata[] = $server->name;
+            $htmldata[] = $server->file;
+            $htmldata[] = $server->countrie->name;
+            $htmldata[] = $server->sort;
+            $htmldata[] = ($server->premium) ? 'Yes' : 'No';
+            $htmldata[] = ($server->active) ? 'Active' : 'Inactive';
+
+            
+            $data['success'] = true;
+            $data['type'] = 'Edit';
+            $data['id'] = $server->id;
+            $data['htmldata'] = $htmldata;
+            return response()->json($data);
+        }
+
     }
 
     /**
@@ -140,5 +193,11 @@ class ServerController extends Controller
     public function destroy($id)
     {
         //
+        $server = Server::findOrFail($id);
+        $server->delete();
+
+        $data['success'] = true;
+        $data['type'] = 'Delete';
+        return response()->json($data);
     }
 }

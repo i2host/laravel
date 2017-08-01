@@ -12,7 +12,7 @@
        <button type="submit" class="btn btn-primary">Save changes</button>
      </div>
 	 <input name="_method" type="hidden" value="PATCH">
-   <input name="id" type="hidden" value="{{ $id }}">
+   <input name="id" type="hidden" value="{{ $data->id }}">
    {{ csrf_field() }}
 </form>
 @include('includes.editsjs')

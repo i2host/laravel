@@ -1,7 +1,7 @@
 @extends('includes.deletes')
 
 @section('delete_content')
-<p>Confirm delete recoard No. {{ $id }} - {{ $name }}</p>
+<p>Confirm delete recoard No. {{ $data->id }} - {{ $data->name }}</p>
 @stop
 
 

@@ -11,7 +11,7 @@
 		<button type="submit" class="btn btn-danger">Delete</button>
       </div>
     <input name="_method" type="hidden" value="DELETE">
-    <input name="id" type="hidden" value="{{ $id }}" >
+    <input name="id" type="hidden" value="{{ $data->id }}" >
    {{ csrf_field() }}
   </form>
   
