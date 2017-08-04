@@ -28,6 +28,11 @@
                   <li><a href="{{ URL::to('/') }}"><i class="fa fa-home"></i> Dashboard </a></li>
                   <li><a href="{{ URL::to('countries') }}"><i class="fa fa-home"></i> Countries </a></li>
                   <li><a href="{{ URL::to('servers') }}"><i class="fa fa-home"></i> Servers </a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> Users </a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> Devices </a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> Languages </a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> Servers </a></li>
+                  <li><a href="#"><i class="fa fa-home"></i> Settings </a></li>
                 </ul>
               </div>
  

@@ -38,6 +38,7 @@ class ServerController extends Controller
     {
         return [
             'name' => 'required|unique:servers|max:60',
+            'file_type' => 'required|min:3|max:3',
             'file' => 'required',
             'countrie_id' => 'required',
             'premium' => 'required',
@@ -48,6 +49,7 @@ class ServerController extends Controller
     {
         return [
             'name' => 'required|max:60',
+            'file_type' => 'required|min:3|max:3',
             'file' => 'required',
             'countrie_id' => 'required',
             'premium' => 'required',
@@ -84,6 +86,7 @@ class ServerController extends Controller
         $sort = $this->lastsort();
         $server = new Server;
         $server->name = $request->name;
+        $server->file_type = $request->file_type;
         $server->file = $request->file;
         $server->countrie_id = $request->countrie_id;
         $server->sort = $sort;
@@ -92,6 +95,7 @@ class ServerController extends Controller
         $server->save();
 
         $htmldata[] = $server->name;
+        $htmldata[] = $server->file_type;
         $htmldata[] = $server->file;
         $htmldata[] = $server->Countrie->name;
         $htmldata[] = $server->sort;
@@ -158,6 +162,7 @@ class ServerController extends Controller
         else {
             $server = Server::find($id);
             $server->name = $request->name;
+            $server->file_type = $request->file_type;
             $server->file = $request->file;
             $server->countrie_id = $request->countrie_id;
             $server->sort  = $request->sort;
@@ -168,6 +173,7 @@ class ServerController extends Controller
             $custom = new Custom;
             $htmldata[] = $custom->htmldata("",$server->id,'edit');
             $htmldata[] = $server->name;
+            $htmldata[] = $server->file_type;
             $htmldata[] = $server->file;
             $htmldata[] = $server->countrie->name;
             $htmldata[] = $server->sort;
