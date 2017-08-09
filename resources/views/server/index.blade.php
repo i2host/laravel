@@ -1,29 +1,13 @@
 @extends('main')
 
 @section('title','| Servers')
+@section('subtitletitle','Servers')
 
 @section('main_content')
           <div class="">
             <!-- start of page !-->
 
-            <div class="page-title">
-              <div class="title_left">
-                <h3>Servers</h3>
-              </div>
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-
+            @include('includes.subpagetitlearea')
 
             <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -31,15 +15,13 @@
                 <div class="x_title">
                     <h2>Add</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                     </ul>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
                     <!-- action="filename" the file name that handel the forms add/edit/delete  -->
                     <form method="POST" action="{{ url()->current() }}" id="addformvalid">
-                    
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
                             <label for="name">Name * :</label>
@@ -62,7 +44,6 @@
                             <input type="text" id="file" class="form-control" name="file" required placeholder="File">
                             </div>
                         </div>
-
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
                             <label for="name">Country * :</label>
@@ -86,7 +67,8 @@
                         </div>
 
                         <div class="col-md-12 col-lg-12">
-                        <button type="submit" class="btn btn-default">Add</button>
+                            <button type="submit" class="btn btn-default">Add</button>
+                            <button type="button" onclick="upload_modal()" name="" class="btn btn-primary">Upload</button>
                         </div>
 
                         {{ csrf_field() }}
@@ -97,7 +79,6 @@
                 </div>
             </div>
         </div>
-
 
 
         <div class="row">
@@ -149,7 +130,7 @@
                         <td>{{ $data->Countrie->name }}</td>
                         <td>{{ $data->sort }}</td>
                         <td>{{ $data->premium === 1 ? 'Yes' : 'No' }}</td>
-                        <td>{{ $data->active === 1 ? 'Active' : 'Inactive'}}</td>
+                        <td>{{ $data->active === 1 ? 'Yes' : 'No'}}</td>
                     </tr>
                     @endforeach
                     <!--end while !-->
@@ -159,15 +140,10 @@
                 <!-- include modals !-->
                 @include('includes.modal')
                 
-                
                 </div>
             </div>
             </div>
         </div>
-
         <!-- end of page !-->
         </div>
-
-
-
 @stop

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateServersTable extends Migration
+class Subscriptionlogs extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateServersTable extends Migration
      */
     public function up()
     {
-        Schema::create('servers', function (Blueprint $table) {
+        //
+         Schema::create('subscriptions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('countrie_id');
-            $table->string('name','60');
-            $table->string('file');
-            $table->integer('sort');
-            $table->tinyInteger('active');
-			$table->tinyInteger('premium');
+            $table->integer('plan_id');
+            $table->integer('user_id');
+            $table->integer('paid_by');
+            $table->timestamp('start_date');
+            $table->timestamp('end_date');
             $table->timestamps();
         });
     }
@@ -32,6 +32,7 @@ class CreateServersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('servers');
+        //
+        Schema::dropIfExists('subscriptions');
     }
 }

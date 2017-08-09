@@ -1,0 +1,9 @@
+{
+    "msg_welcome_title" : "herzlich willkommen",
+    "msg_welcome_body" : "Vielen Dank für die Installation unserer neuesten Version",
+    "msg_new_version_title" : "Neue Version verfügbar",
+    "msg_new_version_body" : "Bitte aktualisieren Sie unsere App, um auf dem Laufenden zu bleiben",
+    "msg_out_date_version_title" : "Upgrade ist erforderlich",
+    "msg_out_date_version_body" : "Ihre Version ist veraltet ... bitte aktualisieren Sie i2VPN"
+
+}

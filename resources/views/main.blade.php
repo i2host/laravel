@@ -67,4 +67,6 @@
       </div>
     </div>
     <input type="hidden" name="baseurl" value="{{ url()->current() }}"> 
+    <input type="hidden" name="upload_path" value="{{ url('upload') }}">
+    <input type="hidden" name="get_upload" value="{{ url('getUpload') }}">
     @include('includes.footer')

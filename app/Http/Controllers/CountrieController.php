@@ -94,7 +94,7 @@ class CountrieController extends Controller
         $htmldata[] = $countrie->image_code;
         $htmldata[] = $countrie->sort;
         $htmldata[] = ($countrie->premium) ? 'Yes' : 'No';
-        $htmldata[] = ($countrie->active) ? 'Active' : 'Inactive';
+        $htmldata[] = ($countrie->active) ? 'Yes' : 'No';
 
         $custom = new Custom;
         $data['success'] = true;
@@ -167,7 +167,7 @@ class CountrieController extends Controller
             $htmldata[] = $countrie->image_code;
             $htmldata[] = $countrie->sort;
             $htmldata[] = ($countrie->premium) ? 'Yes' : 'No';
-            $htmldata[] = ($countrie->active) ? 'Active' : 'Inactive';
+            $htmldata[] = ($countrie->active) ? 'Yes' : 'No';
 
             
             $data['success'] = true;

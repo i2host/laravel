@@ -20,8 +20,9 @@ table.on('draw.dt', function() {
 /* add form ajax start
 Edit,Copy,Delete,members,teams,details found in folder forms under names , edit.js.php > copy.js.php > delete.js.php > members.js.php > teams.js.php > details.js.php
 */
-var addform = $('#addformvalid');
 var formfile = $("input[name='baseurl']").val();
+var upload_path = $("input[name='upload_path']").val();
+var addform = $('#addformvalid');
 addform.parsley().on('field:validated', function() {
 })
 .on('form:submit', function() {
@@ -77,14 +78,33 @@ function submitforms(str="",type="",formfile="") {
 		});
 	}
 	else {
+
+		var errormsg = '';
+		for (var message in respond.messages) {
+			// skip loop if the property is from prototype
+			if (!respond.messages.hasOwnProperty(message)) continue;
+
+			var obj = respond.messages[message];
+			for (var prop in obj) {
+				// skip loop if the property is from prototype
+				if(!obj.hasOwnProperty(prop)) continue;
+
+				// your code
+				errormsg += message +' '+ obj[prop]+'<br>';
+
+			}
+		}
+
+
 		new PNotify({
 			title: respond.type+" Status",
 			type: "error",
-			text: "Action Not Complete Error With Database",
+			text: errormsg,
 			hide: true,
 			styling: 'bootstrap3',
 			delay:5000
 		});
+
 	}
 
 		
@@ -94,9 +114,9 @@ function submitforms(str="",type="",formfile="") {
 	.fail(function( jqXHR, textStatus , msg ) {
 		//alert(msg);
 		new PNotify({
-			title: actiondone+" Status",
+			title: "Cant reach the server",
 			type: "error",
-			text: "Action Not Complete Error With Database <br> "+msg,
+			text: msg,
 			hide: true,
 			styling: 'bootstrap3',
 			delay:5000
@@ -142,17 +162,7 @@ function bluk_edit() {
 	$('#multieditmodal').modal("show");
 }
 
-function close_exit(modalname) {
-	$(':checkbox').removeAttr('checked');
-	$('.icheckbox_flat-green').removeClass('checked');
-	$('#'+modalname).find(".modal-content").html("");
-}
 
-function delete_sele_exit(modalname="") {
-	$("table").find(".editrow").removeClass("editrow");
-	$("table").find("tr.restorerow").removeClass("restorerow");
-	$("table").find("tr.deleterow").removeClass("deleterow");
-}
 /* Submit Forms Add , Edit , Delete Multi Delete End */
 
 
@@ -214,35 +224,6 @@ $("select[name='FUNCTIONAL_COMP_ID']").change(function() {
 /* Change select value */
 }
 changeselectvalue();
-
-
-/* Upload Modal And Upload Prograss */
-
-function upload_modal(datafile) {
-	modal_open('#uploadmodal',datafile,"","upload");
-}
-
-/* Upload Modal */
-
-/* profile Modal */
-
-function profile_modal(datafile) {
-$('#profilemodal').modal("show");
-$('#profilemodal').on('shown.bs.modal', function (e) {
-	var modal = $(this);
-	modal.find(".modal-content").load( "forms/"+datafile+"?members" );
-});
-}
-
-/* profile Modal */
-
-$('#uploadmodal').on('hide.bs.modal', function (e) {
-	close_exit('uploadmodal');
-});
-
-$('#profilemodal').on('hide.bs.modal', function (e) {
-	close_exit('profilemodal');
-});
 
 
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateServersTable extends Migration
+class Settings extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateServersTable extends Migration
      */
     public function up()
     {
-        Schema::create('servers', function (Blueprint $table) {
+        //
+        Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('countrie_id');
-            $table->string('name','60');
-            $table->string('file');
-            $table->integer('sort');
-            $table->tinyInteger('active');
-			$table->tinyInteger('premium');
+            $table->string('site_url');
+            $table->string('upload_folder');
+            $table->string('current_version');
+            $table->string('min_version');
+            $table->tinyInteger('api_log');
             $table->timestamps();
         });
     }
@@ -32,6 +32,7 @@ class CreateServersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('servers');
+        //
+        Schema::dropIfExists('settings');
     }
 }

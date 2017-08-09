@@ -100,7 +100,7 @@ class ServerController extends Controller
         $htmldata[] = $server->Countrie->name;
         $htmldata[] = $server->sort;
         $htmldata[] = ($server->premium) ? 'Yes' : 'No';
-        $htmldata[] = ($server->active) ? 'Active' : 'Inactive';
+        $htmldata[] = ($server->active) ? 'Yes' : 'No';
 
         $custom = new Custom;
         $data['success'] = true;
@@ -178,7 +178,7 @@ class ServerController extends Controller
             $htmldata[] = $server->countrie->name;
             $htmldata[] = $server->sort;
             $htmldata[] = ($server->premium) ? 'Yes' : 'No';
-            $htmldata[] = ($server->active) ? 'Active' : 'Inactive';
+            $htmldata[] = ($server->active) ? 'Yes' : 'No';
 
             
             $data['success'] = true;

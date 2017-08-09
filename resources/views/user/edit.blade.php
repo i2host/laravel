@@ -3,40 +3,37 @@
 @section('edit_content')
 		<div class="col-lg-6 col-md-6 col-sm-12">
 			<div class="form-group">
-			<label for="name">Name * :</label>
-			<input type="text" name="name" value="{{ $data->name }}" id="name" class="form-control" required placeholder="Name">
+			<label>Name * :</label>
+			<input type="text" name="name" value="{{ $data->name }}" required placeholder="Name" class="form-control">
 			</div>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-12">
 			<div class="form-group">
-			<label for="name">Type * :</label>
-			<select name="file_type" class="form-control">
-				<option value="">Select</option>
-				<option {{ $data->file_type == 'UDP' ? 'selected' : '' }} value="UDP">UDP</option>
-				<option {{ $data->file_type == 'TCP' ? 'selected' : '' }} value="TCP">TCP</option>
-			</select>
+			<label >Last Name * :</label>
+			<input type="text" name="last_name" value="{{ $data->last_name }}" required placeholder="Last Name" class="form-control">
 			</div>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-12">
 			<div class="form-group">
-			<label for="shortcode">File * :</label>
-			<input type="text" name="file" value="{{ $data->file }}" id="file" class="form-control" required placeholder="File">
+			<label >E-mail * :</label>
+			<input type="text" name="email" value="{{ $data->email }}" required placeholder="Email" class="form-control">
 			</div>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-12">
 			<div class="form-group">
-			<label for="name">Country * :</label>
-			<select name="countrie_id" class="form-control">
-				<option value="">Select</option>
-				@foreach ($countries as $countrie)
-				<option {{ $countrie->name == $data->countrie->name ? 'selected' : ''  }} value="{{ $countrie->id }}">{{ $countrie->name }}</option>
-				@endforeach
-			</select>
+			<label>Password :</label>
+			<input type="text" name="password" placeholder="Password Optional" class="form-control">
 			</div>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-12">
 			<div class="form-group">
-			<label for="shortcode">Premium * :</label>
+			<label>Username :</label>
+			<input type="text" name="username" value="{{ $data->username }}" placeholder="Username" class="form-control">
+			</div>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-12">
+			<div class="form-group">
+			<label>Premium * :</label>
 			<select name="premium" class="form-control">
 				<option value="">Select</option>
 				<option {{ $data->premium == 0 ? 'selected' : ''  }} value="0">No</option>
@@ -46,13 +43,7 @@
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-12">
 			<div class="form-group">
-			<label for="name">Sort * :</label>
-			<input type="text" name="sort" value="{{ $data->sort }}" id="name" class="form-control"  required placeholder="Sort">
-			</div>
-		</div>
-		<div class="col-lg-6 col-md-6 col-sm-12">
-			<div class="form-group">
-			<label for="shortcode">Status * :</label>
+			<label>Active * :</label>
 			<select name="active" class="form-control">
 				<option {{ $data->active == 0 ? 'selected' : ''  }} value="0">No</option>
 				<option {{ $data->active == 1 ? 'selected' : ''  }} value="1">Yes</option>

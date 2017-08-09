@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateServersTable extends Migration
+class Plans extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateServersTable extends Migration
      */
     public function up()
     {
-        Schema::create('servers', function (Blueprint $table) {
+        //
+         Schema::create('plans', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('countrie_id');
-            $table->string('name','60');
-            $table->string('file');
+            $table->string('title');
+            $table->text('duration');
+            $table->decimal('amount',8,2);
+            $table->string('points');
             $table->integer('sort');
             $table->tinyInteger('active');
-			$table->tinyInteger('premium');
             $table->timestamps();
         });
     }
@@ -32,6 +33,7 @@ class CreateServersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('servers');
+        //
+        Schema::dropIfExists('plans');
     }
 }

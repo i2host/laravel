@@ -23,9 +23,11 @@ class AddUsersInformation extends Migration
 			$table->timestamp('last_login')->after('last_logout'); 
 			$table->text('note')->after('last_login');
 			$table->smallInteger('type')->after('note');
-			$table->smallInteger('code')->after('type');
+			$table->smallInteger('points')->after('type');
+			$table->smallInteger('code')->after('points');
 			$table->smallInteger('expired')->after('code');
-			$table->smallInteger('active')->after('expired');
+			$table->smallInteger('premium')->after('expired');
+			$table->smallInteger('active')->after('premium');
 		});
     }
 
@@ -48,6 +50,7 @@ class AddUsersInformation extends Migration
 			$table->dropColumn('type');
 			$table->dropColumn('code');
 			$table->dropColumn('expired');
+			$table->dropColumn('premium');
 			$table->dropColumn('active');
 		});
     }

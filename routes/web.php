@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
-
+Route::get('/','MainController@index');
+Route::get('/upload','MainController@getUpload');
+Route::post('/upload','MainController@upload');
 
 Route::resource('/countries', 'CountrieController');
 Route::resource('/servers', 'ServerController');
+Route::resource('/users', 'UserController');

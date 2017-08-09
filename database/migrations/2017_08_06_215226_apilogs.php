@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateServersTable extends Migration
+class Apilogs extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateServersTable extends Migration
      */
     public function up()
     {
-        Schema::create('servers', function (Blueprint $table) {
+        //
+        Schema::create('apilogs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('countrie_id');
-            $table->string('name','60');
-            $table->string('file');
-            $table->integer('sort');
-            $table->tinyInteger('active');
-			$table->tinyInteger('premium');
+            $table->longText('request');
+            $table->longText('response');
+            $table->string('action');
+            $table->string('method');
+            $table->integer('response_code');
+            $table->ipAddress('ip');
             $table->timestamps();
         });
     }
@@ -32,6 +33,7 @@ class CreateServersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('servers');
+        //
+        Schema::dropIfExists('apilogs');
     }
 }

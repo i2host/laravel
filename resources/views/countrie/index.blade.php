@@ -1,29 +1,13 @@
 @extends('main')
 
 @section('title','| Countries')
+@section('subtitletitle','Countries')
 
 @section('main_content')
           <div class="">
             <!-- start of page !-->
 
-            <div class="page-title">
-              <div class="title_left">
-                <h3>Countries</h3>
-              </div>
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-
+            @include('includes.subpagetitlearea')
 
             <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -31,8 +15,7 @@
                 <div class="x_title">
                     <h2>Add</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                     </ul>
                     <div class="clearfix"></div>
                 </div>
@@ -131,7 +114,7 @@
                         <td>{{ $data->image_code }}</td>
                         <td>{{ $data->sort }}</td>
                         <td>{{ $data->premium === 1 ? 'Yes' : 'No' }}</td>
-                        <td>{{ $data->active === 1 ? 'Active' : 'Inactive'}}</td>
+                        <td>{{ $data->active === 1 ? 'Yes' : 'No'}}</td>
                     </tr>
                     @endforeach
                     <!--end while !-->

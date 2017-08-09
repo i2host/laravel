@@ -9,6 +9,7 @@
 	 <div class="clearfix"></div>
      <div class="modal-footer">
        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+       <button type="button" onclick="upload_modal()" name="" class="btn btn-primary">Upload</button>
        <button type="submit" class="btn btn-primary">Save changes</button>
      </div>
 	 <input name="_method" type="hidden" value="PATCH">

@@ -1,0 +1,8 @@
+{
+   "msg_welcome_title" : "أهلا و سهلاً",
+   "msg_welcome_body" :  "شكراً لك لتحميل احدث اصدار من التطبيق",
+   "msg_new_version_title" : "اصدار جديد متوفر",
+   "msg_new_version_body" : "رجائاً قم بتحديث التطبيق لتصلك اخر التحديثات",
+   "msg_out_date_version_title" : "التحديث اجباري",
+   "msg_out_date_version_body" : "الاصدار الذي تقوم باستخدامه قديم ... يرجى تحديث التطبيق"
+}
