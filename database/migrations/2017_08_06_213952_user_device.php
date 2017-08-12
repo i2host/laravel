@@ -14,7 +14,7 @@ class UserDevice extends Migration
     public function up()
     {
         //
-        Schema::create('user_device', function (Blueprint $table) {
+        Schema::create('device_user', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('device_id');
@@ -30,6 +30,6 @@ class UserDevice extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('user_device');
+        Schema::dropIfExists('device_user');
     }
 }

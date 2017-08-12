@@ -1,4 +1,7 @@
 <script type="text/javascript">
+$('#date').datetimepicker({
+    format:'YYYY-MM-DD HH:MM:SS',
+});
 var editform = $('#editformvalid');
 editform.parsley()
 .on('form:submit', function() {

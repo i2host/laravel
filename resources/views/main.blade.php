@@ -35,6 +35,7 @@
   <link href="{{ asset('vendors/jqvmap/dist/jqvmap.min.css') }}" rel="stylesheet"/>
 	<!-- bootstrap-daterangepicker -->
 	<link href="{{ asset('vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
+  <link href="{{ asset('vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
 	<!-- PNotify -->
 	<link href="{{ asset('vendors/pnotify/dist/pnotify.css') }}" rel="stylesheet">
 	<link href="{{ asset('vendors/pnotify/dist/pnotify.buttons.css') }}" rel="stylesheet">
@@ -46,7 +47,7 @@
 	<link href="{{ asset('css/style.css') }}" rel="stylesheet">
   </head>
 
-  <body class="nav-md">
+  <body class="nav-sm">
     <div class="container body">
       <div class="main_container">
         @include('includes.sidebar')

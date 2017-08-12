@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Device;
-use Custom;
-use Validator;
 
-class DeviceController extends Controller
+class DeviceuserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +17,7 @@ class DeviceController extends Controller
         //
         $devices = Device::all();
         $datas['datas'] = $devices; 
-        return view('device.index',$datas);
+        return view('deviceuser.index',$datas);
     }
 
     /**
@@ -52,9 +50,6 @@ class DeviceController extends Controller
     public function show($id)
     {
         //
-        $device = Device::find($id);
-        $datas['data'] = $device;
-        return view('device.delete',$datas);
     }
 
     /**
@@ -66,9 +61,6 @@ class DeviceController extends Controller
     public function edit($id)
     {
         //
-        $device = Device::find($id);
-        $datas['data'] = $device;
-        return view('device.edit',$datas);
     }
 
     /**

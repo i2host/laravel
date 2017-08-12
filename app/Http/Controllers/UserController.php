@@ -42,15 +42,20 @@ class UserController extends Controller
             'email' => 'required|email|unique:users|max:60',
             'password' => 'required|min:6|max:100',
             'active' => 'required',
+            'type' => 'required',
+            'points' => 'required',
             'premium' => 'required',
             ];
         }
         else if ($id != "") {
             return [
-            'name' => 'required|max:60|unique:users,name,'.$id,
-            'last_name' => 'required|max:60',
+            'name' => 'required|max:255',
+            'last_name' => 'required|max:100',
             'email' => 'required|email|max:60|unique:users,email,'.$id,
-            'password' => 'sometimes|max:100',
+            'username' => 'sometimes|max:100|unique:users,username,'.$id,
+            'password' => 'sometimes|max:255',
+            'type' => 'required',
+            'points' => 'required',
             'active' => 'required',
             'premium' => 'required',
             ];
@@ -79,7 +84,8 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->name = $request->name;
         $user->last_name = $request->last_name;
-        $user->type = 1;
+        $user->type = $request->type;
+        $user->points = $request->points;
         $user->premium  = $request->premium;
         $user->active  = $request->active;
         if ($user->save()) {
@@ -89,6 +95,11 @@ class UserController extends Controller
         $htmldata[] = $user->name;
         $htmldata[] = $user->last_name;
         $htmldata[] = ($user->type) ? 'Basic' : 'Facebook';
+        $htmldata[] = $user->points;
+        $htmldata[] = '-';
+        $htmldata[] = '-';
+        $htmldata[] = '-';
+        $htmldata[] = '-';
         $htmldata[] = ($user->premium) ? 'Yes' : 'No';
         $htmldata[] = ($user->active) ? 'Yes' : 'No';
 
@@ -161,7 +172,10 @@ class UserController extends Controller
             $user->password = Hash::make($request->password);
         $user->name = $request->name;
         $user->last_name = $request->last_name;
-        $user->type = 1;
+        $user->type = $request->type;
+        $user->points = $request->points;
+        $user->subscription_end = $request->subscription_end;
+        $user->note = $request->note;
         $user->premium  = $request->premium;
         $user->active  = $request->active;
         if ($user->save()) {
@@ -176,6 +190,11 @@ class UserController extends Controller
             $htmldata[] = $user->name;
             $htmldata[] = $user->last_name;
             $htmldata[] = ($user->type) ? 'Basic' : 'Facebook';
+            $htmldata[] = $user->points;
+            $htmldata[] = $user->subscription_end;
+            $htmldata[] = $user->last_logout;
+            $htmldata[] = $user->last_login;
+            $htmldata[] = $user->note;
             $htmldata[] = ($user->premium) ? 'Yes' : 'No';
             $htmldata[] = ($user->active) ? 'Yes' : 'No';
 

@@ -72,7 +72,6 @@
                         </div>
 
                         {{ csrf_field() }}
-                        <input type="hidden" value="add" name="type">
                     </form>
 
                 </div>

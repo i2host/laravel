@@ -9,3 +9,7 @@
 .hidepanel {
 	display:none;
 }
+
+table.table-bordered.dataTable tbody th, table.table-bordered.dataTable tbody td {
+	word-break:break-all;
+}

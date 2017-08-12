@@ -18,3 +18,5 @@ Route::post('/upload','MainController@upload');
 Route::resource('/countries', 'CountrieController');
 Route::resource('/servers', 'ServerController');
 Route::resource('/users', 'UserController');
+Route::resource('/devices', 'DeviceController');
+Route::resource('/devicesusers', 'DeviceuserController');
