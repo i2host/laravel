@@ -17,7 +17,9 @@ class CreateServersTable extends Migration
             $table->increments('id');
             $table->integer('countrie_id');
             $table->string('name','60');
+            $table->ipAddress('server_ip', 100);
             $table->string('file');
+            $table->string('file_type', 100); 
             $table->integer('sort');
             $table->tinyInteger('active');
 			$table->tinyInteger('premium');

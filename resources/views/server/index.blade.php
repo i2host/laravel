@@ -24,13 +24,19 @@
                     <form method="POST" action="{{ url()->current() }}" id="addformvalid">
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
-                            <label for="name">Name * :</label>
-                            <input type="text" id="name" class="form-control" name="name" required placeholder="Name">
+                            <label>Name * :</label>
+                            <input type="text" name="name" placeholder="Name" required class="form-control">
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
-                            <label for="name">Type * :</label>
+                            <label>Server IP * :</label>
+                            <input type="text" name="server_ip"  placeholder="0.0.0.0" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                            <label>Type * :</label>
                             <select name="file_type" class="form-control">
                                 <option value="">Select</option>
                                 <option value="UDP">UDP</option>
@@ -40,13 +46,13 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
-                            <label for="shortcode">File * :</label>
-                            <input type="text" id="file" class="form-control" name="file" required placeholder="File">
+                            <label>File * :</label>
+                            <input type="text" name="file" placeholder="File" required class="form-control" >
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
-                            <label for="name">Country * :</label>
+                            <label>Country * :</label>
                             <select name="countrie_id" class="form-control">
                                 <option value="">Select</option>
                                 @foreach ($countries as $countrie)
@@ -57,7 +63,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
-                            <label for="shortcode">Premium * :</label>
+                            <label>Premium * :</label>
                             <select name="premium" class="form-control">
                                 <option value="">Select</option>
                                 <option value="0">No</option>
@@ -96,6 +102,7 @@
                     <tr>
                         <th style="width:25px;"><input type="checkbox" name="c1" value="dontcount" id="check-all" class="flat"></th>
                         <th>Name</th>
+                        <th>Server IP</th>
                         <th>Type</th>
                         <th>File</th>
                         <th>Country</th>
@@ -108,6 +115,7 @@
                     <tr>
                         <td id="nosearch"></td>
                         <td>Name</td>
+                        <td>Server IP</td>
                         <td>Type</td>
                         <td>File</td>
                         <td>Country</td>
@@ -124,6 +132,7 @@
                             <input value="{{ $data->id }}" type="checkbox" name="table_records[]" class="flat">
                         </td>
                         <td>{{ $data->name }}</td>
+                        <td>{{ $data->server_ip }}</td>
                         <td>{{ $data->file_type }}</td>
                         <td>{{ $data->file }}</td>
                         <td>{{ $data->Countrie->name }}</td>

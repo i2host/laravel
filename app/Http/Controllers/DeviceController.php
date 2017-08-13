@@ -119,34 +119,32 @@ class DeviceController extends Controller
             $device->note = $request->note;
             $device->online = 0;
             $device->active  = $request->active;
-        if ($device->save()) {
+            if ($device->save()) {
+                $htmldata[] = $device->mac;
+                $htmldata[] = $device->os_version;
+                $htmldata[] = $device->type;
+                $htmldata[] = $device->app_version;
+                $htmldata[] = $device->model;
+                $htmldata[] = $device->last_connect;
+                $htmldata[] = $device->last_disconnect;
+                $htmldata[] = $device->last_logout;
+                $htmldata[] = $device->last_login;
+                $htmldata[] = $device->pin;
+                $htmldata[] = $device->note;
+                $htmldata[] = ($device->online) ? 'Yes' : 'No';
+                $htmldata[] = ($device->active) ? 'Yes' : 'No';
 
-            $htmldata[] = $device->mac;
-            $htmldata[] = $device->os_version;
-            $htmldata[] = $device->type;
-            $htmldata[] = $device->app_version;
-            $htmldata[] = $device->model;
-            $htmldata[] = $device->last_connect;
-            $htmldata[] = $device->last_disconnect;
-            $htmldata[] = $device->last_logout;
-            $htmldata[] = $device->last_login;
-            $htmldata[] = $device->pin;
-            $htmldata[] = $device->note;
-            $htmldata[] = ($device->online) ? 'Yes' : 'No';
-            $htmldata[] = ($device->active) ? 'Yes' : 'No';
-
-            
-            $data['success'] = true;
-            $data['type'] = 'Add';
-            $data['id'] = $device->id;
-            $data['htmldata'] = $this->custom->htmldata($htmldata,$device->id);
-            return response()->json($data);
-        }
-        else {
-            $data['success'] = false;
-            $data['type'] = 'Add';
-            return response()->json($data);
-        }
+                $data['success'] = true;
+                $data['type'] = 'Add';
+                $data['id'] = $device->id;
+                $data['htmldata'] = $this->custom->htmldata($htmldata,$device->id);
+                return response()->json($data);
+            }
+            else {
+                $data['success'] = false;
+                $data['type'] = 'Add';
+                return response()->json($data);
+            }
         }
     }
 
@@ -207,34 +205,32 @@ class DeviceController extends Controller
             $device->pin = $request->pin;
             $device->note = $request->note;
             $device->active  = $request->active;
-        if ($device->save()) {
-
-            $htmldata[] = $this->custom->htmldata("",$device->id,'edit');
-            $htmldata[] = $device->mac;
-            $htmldata[] = $device->os_version;
-            $htmldata[] = $device->type;
-            $htmldata[] = $device->app_version;
-            $htmldata[] = $device->model;
-            $htmldata[] = $device->last_connect;
-            $htmldata[] = $device->last_disconnect;
-            $htmldata[] = $device->last_logout;
-            $htmldata[] = $device->last_login;
-            $htmldata[] = $device->pin;
-            $htmldata[] = $device->note;
-            $htmldata[] = ($device->online) ? 'Yes' : 'No';
-            $htmldata[] = ($device->active) ? 'Yes' : 'No';
-
-            $data['success'] = true;
-            $data['type'] = 'Edit';
-            $data['id'] = $device->id;
-            $data['htmldata'] = $htmldata;
-            return response()->json($data);
-        }
-        else {
-            $data['success'] = false;
-            $data['type'] = 'Edit';
-            return response()->json($data);
-        }
+            if ($device->save()) {
+                $htmldata[] = $this->custom->htmldata("",$device->id,'edit');
+                $htmldata[] = $device->mac;
+                $htmldata[] = $device->os_version;
+                $htmldata[] = $device->type;
+                $htmldata[] = $device->app_version;
+                $htmldata[] = $device->model;
+                $htmldata[] = $device->last_connect;
+                $htmldata[] = $device->last_disconnect;
+                $htmldata[] = $device->last_logout;
+                $htmldata[] = $device->last_login;
+                $htmldata[] = $device->pin;
+                $htmldata[] = $device->note;
+                $htmldata[] = ($device->online) ? 'Yes' : 'No';
+                $htmldata[] = ($device->active) ? 'Yes' : 'No';
+                $data['success'] = true;
+                $data['type'] = 'Edit';
+                $data['id'] = $device->id;
+                $data['htmldata'] = $htmldata;
+                return response()->json($data);
+            }
+            else {
+                $data['success'] = false;
+                $data['type'] = 'Edit';
+                return response()->json($data);
+            }
         }
 
     }

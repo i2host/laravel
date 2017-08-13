@@ -30,6 +30,12 @@
                   <li><a href="{{ URL::to('servers') }}"><i class="fa fa-home"></i> Servers </a></li>
                   <li><a href="{{ URL::to('users') }}"><i class="fa fa-home"></i> Users </a></li>
                   <li><a href="{{ URL::to('devices') }}"><i class="fa fa-home"></i> Devices </a></li>
+                  <li><a><i class="fa fa-bar-chart-o"></i> Reports <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ URL::to('reports') }}/sessionlogs">Sessions</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#"><i class="fa fa-home"></i> Subscriptions </a></li>
                   <li><a href="#"><i class="fa fa-home"></i> Languages </a></li>
                   <li><a href="#"><i class="fa fa-home"></i> Servers </a></li>
                   <li><a href="#"><i class="fa fa-home"></i> Settings </a></li>

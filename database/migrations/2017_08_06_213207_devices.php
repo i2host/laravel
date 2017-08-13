@@ -25,11 +25,11 @@ class Devices extends Migration
             $table->string('model');
             $table->datetime('last_connect')->nullable();
             $table->datetime('last_disconnect')->nullable();
-            $table->datetime('last_logout')->nullable();
             $table->datetime('last_login')->nullable();
-            $table->tinyInteger('online');
+            $table->datetime('last_logout')->nullable();
+            $table->string('pin');
             $table->longText('note')->nullable();
-            $table->string('serial_number');
+            $table->tinyInteger('online');
 			$table->tinyInteger('active');
             $table->timestamps();
         });

@@ -155,8 +155,8 @@
                         <td>{{ $data->model }}</td>
                         <td>{{ $data->last_connect }}</td>
                         <td>{{ $data->last_disconnect }}</td>
-                        <td>{{ $data->last_logout }}</td>
                         <td>{{ $data->last_login }}</td>
+                        <td>{{ $data->last_logout }}</td>
                         <td>{{ $data->pin }}</td>
                         <td>{{ $data->note }}</td>
                         <td>{{ $data->online === 1 ? 'Yes' : 'No'}}</td>
