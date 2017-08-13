@@ -24,43 +24,59 @@
                     <form method="POST" action="{{ url()->current() }}" id="addformvalid">
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
-                            <label for="name">Name * :</label>
-                            <input type="text" id="name" class="form-control" name="name" required placeholder="Name">
+                            <label>VPN Username * :</label>
+                            <input type="text" name="vpnusername" placeholder="VPN Username" required  class="form-control"  >
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
-                            <label for="name">Type * :</label>
-                            <select name="file_type" class="form-control">
-                                <option value="">Select</option>
-                                <option value="UDP">UDP</option>
-                                <option value="TCP">TCP</option>
-                            </select>
+                            <label>VPN Password * :</label>
+                            <input type="text" name="vpnpassword" placeholder="VPN Password" required  class="form-control"  >
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
-                            <label for="shortcode">File * :</label>
-                            <input type="text" id="file" class="form-control" name="file" required placeholder="File">
+                            <label>MAC * :</label>
+                            <input type="text" name="mac" placeholder="00:00:00:00:00:00 or 00-00-00-00-00-00" required  class="form-control"  >
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
-                            <label for="name">Country * :</label>
-                            <select name="countrie_id" class="form-control">
-                                <option value="">Select</option>
-
-                            </select>
+                            <label>Type * :</label>
+                            <input type="text" name="type" placeholder="Phone - tablet .." required  class="form-control"  >
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
-                            <label for="shortcode">Premium * :</label>
-                            <select name="premium" class="form-control">
-                                <option value="">Select</option>
+                            <label>Modal * :</label>
+                            <input type="text" name="model" placeholder="Samsung - Iphone ..." required  class="form-control"  >
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                            <label>OS Version * :</label>
+                            <input type="text" name="os_version" placeholder="4.x.x" required  class="form-control"  >
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                            <label>App Version * :</label>
+                            <input type="text" name="app_version" placeholder="1.x.x" required  class="form-control"  >
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                            <label>Status * :</label>
+                            <select name="active" class="form-control">
                                 <option value="0">No</option>
                                 <option value="1">Yes</option>
                             </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                            <label>Note :</label>
+                            <textarea name="note" class="form-control" rows="3"></textarea>
                             </div>
                         </div>
                         <div class="col-md-12 col-lg-12">
@@ -69,7 +85,6 @@
                         </div>
 
                         {{ csrf_field() }}
-                        <input type="hidden" value="add" name="type">
                     </form>
 
                 </div>
@@ -94,11 +109,17 @@
                     <tr>
                         <th style="width:25px;"><input type="checkbox" name="c1" value="dontcount" id="check-all" class="flat"></th>
                         <th>MAC</th>
-                        <th>OS Version</th>
+                        <th>OS</th>
                         <th>type</th>
-                        <th>App Version</th>
+                        <th>App</th>
                         <th>Model</th>
-                        <th>Serial Number</th>
+                        <th>Connect</th>
+                        <th>Disconnect </th>
+                        <th>Logout</th>
+                        <th>Login</th>
+                        <th>Pin</th>
+                        <th>Note</th>
+                        <th>Online</th>
                         <th>Active</th>
                     </tr>
                     </thead>
@@ -106,11 +127,17 @@
                     <tr>
                         <td id="nosearch"></td>
                         <td>MAC</td>
-                        <td>OS Version</td>
+                        <td>OS</td>
                         <td>type</td>
-                        <td>App Version</td>
+                        <td>App</td>
                         <td>Model</td>
-                        <td>Serial Number</td>
+                        <td>Connect</td>
+                        <td>Disconnect </td>
+                        <td>Logout</td>
+                        <td>Login</td>
+                        <td>Pin</td>
+                        <td>Note</td>
+                        <td>Online</td>
                         <td>Active</td>
                     </tr>
                     </thead>
@@ -126,7 +153,13 @@
                         <td>{{ $data->type }}</td>
                         <td>{{ $data->app_version }}</td>
                         <td>{{ $data->model }}</td>
-                        <td>{{ $data->serial_number }}</td>
+                        <td>{{ $data->last_connect }}</td>
+                        <td>{{ $data->last_disconnect }}</td>
+                        <td>{{ $data->last_logout }}</td>
+                        <td>{{ $data->last_login }}</td>
+                        <td>{{ $data->pin }}</td>
+                        <td>{{ $data->note }}</td>
+                        <td>{{ $data->online === 1 ? 'Yes' : 'No'}}</td>
                         <td>{{ $data->active === 1 ? 'Yes' : 'No'}}</td>
                     </tr>
                     @endforeach

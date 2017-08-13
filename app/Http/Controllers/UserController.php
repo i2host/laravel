@@ -10,6 +10,11 @@ use Validator;
 
 class UserController extends Controller
 {
+    private $custom;
+
+    public function __construct() {
+        $this->custom = new Custom;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -103,11 +108,10 @@ class UserController extends Controller
         $htmldata[] = ($user->premium) ? 'Yes' : 'No';
         $htmldata[] = ($user->active) ? 'Yes' : 'No';
 
-        $custom = new Custom;
         $data['success'] = true;
         $data['type'] = 'Add';
         $data['id'] = $user->id;
-        $data['htmldata'] = $custom->htmldata($htmldata,$user->id);
+        $data['htmldata'] = $this->custom->htmldata($htmldata,$user->id);
         return response()->json($data);
         }
         else {
@@ -164,24 +168,23 @@ class UserController extends Controller
             return response()->json($data);
         }
         else {
-        $user = User::find($id);
-        $user->email = $request->email;
-        if ($request->username != "")
-        $user->username  = $request->username;
-        if ($request->password != "")
-            $user->password = Hash::make($request->password);
-        $user->name = $request->name;
-        $user->last_name = $request->last_name;
-        $user->type = $request->type;
-        $user->points = $request->points;
-        $user->subscription_end = $request->subscription_end;
-        $user->note = $request->note;
-        $user->premium  = $request->premium;
-        $user->active  = $request->active;
+            $user = User::find($id);
+            $user->email = $request->email;
+            if ($request->username != "")
+            $user->username  = $request->username;
+            if ($request->password != "")
+                $user->password = Hash::make($request->password);
+            $user->name = $request->name;
+            $user->last_name = $request->last_name;
+            $user->type = $request->type;
+            $user->points = $request->points;
+            $user->subscription_end = $request->subscription_end;
+            $user->note = $request->note;
+            $user->premium  = $request->premium;
+            $user->active  = $request->active;
         if ($user->save()) {
 
-            $custom = new Custom;
-            $htmldata[] = $custom->htmldata("",$user->id,'edit');
+            $htmldata[] = $this->custom->htmldata("",$user->id,'edit');
             $htmldata[] = $user->email;
             if ($user->username != "")
             $htmldata[] = $user->username;
@@ -205,9 +208,9 @@ class UserController extends Controller
             return response()->json($data);
         }
         else {
-        $data['success'] = false;
-        $data['type'] = 'Edit';
-        return response()->json($data);
+            $data['success'] = false;
+            $data['type'] = 'Edit';
+            return response()->json($data);
         }
         }
     }
@@ -223,14 +226,14 @@ class UserController extends Controller
         //
         $user = User::findOrFail($id);
        if ($user->delete()) {
-        $data['success'] = true;
-        $data['type'] = 'Delete';
-        return response()->json($data);
+            $data['success'] = true;
+            $data['type'] = 'Delete';
+            return response()->json($data);
         }
         else {
-        $data['success'] = false;
-        $data['type'] = 'Delete';
-        return response()->json($data);
+            $data['success'] = false;
+            $data['type'] = 'Delete';
+            return response()->json($data);
         }
     }
 }

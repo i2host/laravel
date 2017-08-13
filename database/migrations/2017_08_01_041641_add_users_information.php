@@ -21,12 +21,12 @@ class AddUsersInformation extends Migration
 			$table->timestamp('subscription_end')->after('facebook_token');
 			$table->timestamp('last_logout')->after('subscription_end');
 			$table->timestamp('last_login')->after('last_logout'); 
-			$table->text('note')->after('last_login');
-			$table->smallInteger('type')->after('note');
+			$table->smallInteger('type')->after('last_login');
 			$table->smallInteger('points')->after('type');
 			$table->smallInteger('code')->after('points');
 			$table->smallInteger('expired')->after('code');
-			$table->smallInteger('premium')->after('expired');
+			$table->longText('note')->after('expired');
+			$table->smallInteger('premium')->after('note');			
 			$table->smallInteger('active')->after('premium');
 		});
     }

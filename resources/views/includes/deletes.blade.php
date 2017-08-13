@@ -1,7 +1,7 @@
 	<form id="delformvalid" action="{{ url()->current() }}" class="form-horizontal form-label-left" method="POST">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Delete Release</h4>
+        <h4 class="modal-title" id="myModalLabel">Delete</h4>
       </div>
       <div class="modal-body">
 		    @yield('delete_content')

@@ -28,9 +28,9 @@ class Devices extends Migration
             $table->datetime('last_logout')->nullable();
             $table->datetime('last_login')->nullable();
             $table->tinyInteger('online');
-            $table->tinyInteger('active');
-            $table->string('note');
+            $table->longText('note')->nullable();
             $table->string('serial_number');
+			$table->tinyInteger('active');
             $table->timestamps();
         });
     }
