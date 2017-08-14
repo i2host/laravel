@@ -20,4 +20,4 @@ Route::resource('/servers', 'ServerController');
 Route::resource('/users', 'UserController');
 Route::resource('/devices', 'DeviceController');
 Route::resource('/devicesusers', 'DeviceuserController');
-Route::resource('/reports/{name}', 'ReportController');
+Route::resource('/sessionlogs', 'SessionlogController');

@@ -60,13 +60,13 @@
                         <td>
                             <input value="{{ $data->id }}" type="checkbox" name="table_records[]" class="flat">
                         </td>
-                        <td>{{ $data->mac }}</td>
+                        <td>{{ $data->device->mac }}</td>
                         <td>{{ $data->client_ip }}</td>
                         <td>{{ $data->client_port }}</td>
                         <td>{{ $data->vpn_ip }}</td>
                         <td>{{ $data->vpn_port }}</td>
                         <td>{{ $data->server_ip }}</td>
-                        <td>{{ $data->name }}</td>
+                        <td>{{ $data->server->name }}</td>
                         <td>{{ $data->connect_time }}</td>
                         <td>{{ $data->disconnect_time }}</td>
                         <td>{{ $data->recived_data }}</td>

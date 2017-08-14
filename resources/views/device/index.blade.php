@@ -48,7 +48,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
-                            <label>Modal * :</label>
+                            <label>Model * :</label>
                             <input type="text" name="model" placeholder="Samsung - Iphone ..." required  class="form-control"  >
                             </div>
                         </div>
@@ -109,10 +109,10 @@
                     <tr>
                         <th style="width:25px;"><input type="checkbox" name="c1" value="dontcount" id="check-all" class="flat"></th>
                         <th>MAC</th>
-                        <th>OS</th>
                         <th>type</th>
-                        <th>App</th>
                         <th>Model</th>
+                        <th>OS</th>
+                        <th>App</th>
                         <th>Connect</th>
                         <th>Disconnect </th>
                         <th>Logout</th>
@@ -127,10 +127,10 @@
                     <tr>
                         <td id="nosearch"></td>
                         <td>MAC</td>
-                        <td>OS</td>
                         <td>type</td>
-                        <td>App</td>
                         <td>Model</td>
+                        <td>OS</td>
+                        <td>App</td>
                         <td>Connect</td>
                         <td>Disconnect </td>
                         <td>Logout</td>
@@ -149,10 +149,10 @@
                             <input value="{{ $data->id }}" type="checkbox" name="table_records[]" class="flat">
                         </td>
                         <td>{{ $data->mac }}</td>
-                        <td>{{ $data->os_version }}</td>
                         <td>{{ $data->type }}</td>
-                        <td>{{ $data->app_version }}</td>
                         <td>{{ $data->model }}</td>
+                        <td>{{ $data->os_version }}</td>
+                        <td>{{ $data->app_version }}</td>
                         <td>{{ $data->last_connect }}</td>
                         <td>{{ $data->last_disconnect }}</td>
                         <td>{{ $data->last_login }}</td>

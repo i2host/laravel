@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Report;
-class ReportController extends Controller
+use App\Sessionlog;
+
+class SessionlogController extends Controller
 {
 
     #public function sessionlogs() {
@@ -17,17 +17,11 @@ class ReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($name)
+    public function index()
     {
-        //
-        switch ($name) {
-        case 'sessionlogs': 
-            $datas['datas'] = Report::sessionlogs();
-            break;
-        }
-
-        $view = 'report.'.$name;
-        return view($view,$datas);
+        $sessionlogs = Sessionlog::all();
+        $datas['datas'] = $sessionlogs; 
+        return view('sessionlog.index',$datas);
     }
 
     /**
@@ -60,6 +54,9 @@ class ReportController extends Controller
     public function show($id)
     {
         //
+        $sessionlogs = Sessionlog::find($id);
+        $datas['data'] = $sessionlogs;
+        return view('sessionlog.delete',$datas);
     }
 
     /**
@@ -71,6 +68,11 @@ class ReportController extends Controller
     public function edit($id)
     {
         //
+        $sessionlogs = Sessionlog::find($id);
+        $sessions = Sessionlog::where('device_id', $sessionlogs->device_id)->get()->sortByDesc('id');
+        $datas['data'] = $sessionlogs;
+        $datas['sessions'] = $sessions;
+        return view('sessionlog.edit',$datas);
     }
 
     /**
@@ -83,6 +85,11 @@ class ReportController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $data['success'] = true;
+        $data['type'] = 'Edit';
+        $data['id'] = '';
+        $data['htmldata'] = '';
+        return response()->json($data);
     }
 
     /**
@@ -94,5 +101,16 @@ class ReportController extends Controller
     public function destroy($id)
     {
         //
+        $device = Sessionlog::findOrFail($id);
+       if ($device->delete()) {
+            $data['success'] = true;
+            $data['type'] = 'Delete';
+            return response()->json($data);
+        }
+        else {
+            $data['success'] = false;
+            $data['type'] = 'Delete';
+            return response()->json($data);
+        }
     }
 }
