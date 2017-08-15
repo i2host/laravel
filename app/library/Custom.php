@@ -2,6 +2,7 @@
 
 namespace App\library;
 
+use Illuminate\Support\Facades\DB;
 
 class Custom {
 
@@ -39,5 +40,19 @@ class Custom {
         }
         return $randomString;
      }
+
+    public function lastsort($table,$option="") {
+        if ($option == "") {
+        $lastsort = DB::table($table)->orderBy('sort', 'desc')->limit(1)->get();
+        }
+        else {
+        $lastsort = DB::table($table)->where($option[0],$option[1],$option[2])->orderBy('sort', 'desc')->limit(1)->get();
+        }
+        if (sizeof($lastsort) == 0)
+        $lastsort = 1;
+        else 
+        $lastsort = $lastsort[0]->sort + 1;
+        return $lastsort;
+    }
 
 }

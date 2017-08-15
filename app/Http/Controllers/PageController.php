@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Server;
-use App\Countrie;
+use App\page;
+use App\I18n;
 use Custom;
 use Validator;
-class ServerController extends Controller
+class PageController extends Controller
 {
     private $custom;
 
     public function __construct() {
         $this->custom = new Custom;
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -23,11 +22,11 @@ class ServerController extends Controller
     public function index()
     {
         //
-        $servers = Server::all();
-        $countries = Countrie::all();
-        $datas['datas'] = $servers;
-        $datas['countries'] = $countries; 
-        return view('server.index',$datas);
+        $pages = Page::all();
+        $i18ns = I18n::all();
+        $datas['datas'] = $pages;
+        $datas['i18ns'] = $i18ns;
+        return view('page.index',$datas);
     }
 
     /**
@@ -44,22 +43,20 @@ class ServerController extends Controller
     {
         if ($id == "") {
             return [
-            'name' => 'required|max:60|unique:servers',
-            'server_ip' => 'required|max:45|unique:servers',
-            'file_type' => 'required|min:3|max:3',
-            'file' => 'required',
-            'countrie_id' => 'required',
-            'premium' => 'required',
+            'i18n_id' => 'required',
+            'title' => 'required|max:240',
+            'content' => 'required',
+            'public' => 'required|numeric',
+            'active' => 'required|numeric',
             ];
         }
         else if ($id != "") {
             return [
-            'name' => 'required|max:60|unique:servers,name,'.$id,
-            'server_ip' => 'required|max:45|unique:servers,server_ip,'.$id,
-            'file_type' => 'required|min:3|max:3',
-            'file' => 'required',
-            'countrie_id' => 'required',
-            'premium' => 'required',
+            'i18n_id' => 'required',
+            'title' => 'required|max:240',
+            'content' => 'required',
+            'public' => 'required|numeric',
+            'active' => 'required|numeric',
             ];
         }
     }
@@ -81,29 +78,24 @@ class ServerController extends Controller
             return response()->json($data);
         }
         else {
-            $server = new Server;
-            $server->name = $request->name;
-            $server->server_ip = $request->server_ip;
-            $server->file_type = $request->file_type;
-            $server->file = $request->file;
-            $server->countrie_id = $request->countrie_id;
-            $server->sort = $this->custom->lastsort('servers');;
-            $server->premium  = $request->premium;
-            $server->active = 0;
-            if ($server->save()) {
-                $htmldata[] = $server->name;
-                $htmldata[] = $request->server_ip;
-                $htmldata[] = $server->file_type;
-                $htmldata[] = $server->file;
-                $htmldata[] = $server->Countrie->name;
-                $htmldata[] = $server->sort;
-                $htmldata[] = ($server->premium) ? 'Yes' : 'No';
-                $htmldata[] = ($server->active) ? 'Yes' : 'No';
+            $page = new Page;
+            $page->i18n_id = $request->i18n_id;
+            $page->title = $request->title;
+            $page->content = $request->content;
+            $page->public = $request->public;
+            $page->active  = $request->active;
+            if ($page->save()) {
+                $htmldata[] = $page->I18n->code;
+                $htmldata[] = $page->title;
+                $htmldata[] = ($page->public) ? 'Yes' : 'No';
+                $htmldata[] = ($page->active) ? 'Yes' : 'No';
+                $htmldata[] = $page->created_at->format('d M Y - H:i:s');
+                $htmldata[] = $page->updated_at->format('d M Y - H:i:s');
 
                 $data['success'] = true;
                 $data['type'] = 'Add';
-                $data['id'] = $server->id;
-                $data['htmldata'] = $this->custom->htmldata($htmldata,$server->id);
+                $data['id'] = $page->id;
+                $data['htmldata'] = $this->custom->htmldata($htmldata,$page->id);
                 return response()->json($data);
             }
             else {
@@ -123,9 +115,9 @@ class ServerController extends Controller
     public function show($id)
     {
         //
-        $server = Server::find($id);
-        $datas['data'] = $server;
-        return view('server.delete',$datas);
+        $page = Page::find($id);
+        $datas['data'] = $page;
+        return view('page.delete',$datas);
     }
 
     /**
@@ -137,11 +129,11 @@ class ServerController extends Controller
     public function edit($id)
     {
         //
-        $server = Server::find($id);
-        $Countires = Countrie::all();
-        $datas['data'] = $server;
-        $datas['countries'] = $Countires;
-        return view('server.edit',$datas);
+        $page = Page::find($id);
+        $i18ns = I18n::all();
+        $datas['data'] = $page;
+        $datas['i18ns'] = $i18ns;
+        return view('page.edit',$datas);
     }
 
     /**
@@ -161,29 +153,24 @@ class ServerController extends Controller
             $data['messages'] = $validator->errors();
             return response()->json($data);
         }
-        else {
-            $server = Server::find($id);
-            $server->name = $request->name;
-            $server->server_ip = $request->server_ip;
-            $server->file_type = $request->file_type;
-            $server->file = $request->file;
-            $server->countrie_id = $request->countrie_id;
-            $server->sort  = $request->sort;
-            $server->premium  = $request->premium;
-            $server->active  = $request->active;
-            if ($server->save()) {
-                $htmldata[] = $this->custom->htmldata("",$server->id,'edit');
-                $htmldata[] = $server->name;
-                $htmldata[] = $server->server_ip;
-                $htmldata[] = $server->file_type;
-                $htmldata[] = $server->file;
-                $htmldata[] = $server->countrie->name;
-                $htmldata[] = $server->sort;
-                $htmldata[] = ($server->premium) ? 'Yes' : 'No';
-                $htmldata[] = ($server->active) ? 'Yes' : 'No';
+        else {     
+            $page = Page::find($id);
+            $page->i18n_id = $request->i18n_id;
+            $page->title = $request->title;
+            $page->content = $request->content;
+            $page->public  = $request->public;
+            $page->active  = $request->active;
+            if ($page->save()) {
+                $htmldata[] = $this->custom->htmldata("",$page->id,'edit');
+                $htmldata[] = $page->I18n->code;
+                $htmldata[] = $page->title;
+                $htmldata[] = ($page->public) ? 'Yes' : 'No';
+                $htmldata[] = ($page->active) ? 'Yes' : 'No';
+                $htmldata[] = $page->created_at->format('d M Y - H:i:s');
+                $htmldata[] = $page->updated_at->format('d M Y - H:i:s');
                 $data['success'] = true;
                 $data['type'] = 'Edit';
-                $data['id'] = $server->id;
+                $data['id'] = $page->id;
                 $data['htmldata'] = $htmldata;
                 return response()->json($data);
             }
@@ -193,7 +180,6 @@ class ServerController extends Controller
                 return response()->json($data);
             }
         }
-
     }
 
     /**
@@ -205,8 +191,8 @@ class ServerController extends Controller
     public function destroy($id)
     {
         //
-        $server = Server::findOrFail($id);
-       if ($server->delete()) {
+        $page = Page::findOrFail($id);
+       if ($page->delete()) {
             $data['success'] = true;
             $data['type'] = 'Delete';
             return response()->json($data);

@@ -26,22 +26,33 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li><a href="{{ URL::to('/') }}"><i class="fa fa-home"></i> Dashboard </a></li>
-                  <li><a href="{{ URL::to('countries') }}"><i class="fa fa-home"></i> Countries </a></li>
-                  <li><a href="{{ URL::to('servers') }}"><i class="fa fa-home"></i> Servers </a></li>
-                  <li><a href="{{ URL::to('users') }}"><i class="fa fa-home"></i> Users </a></li>
-                  <li><a href="{{ URL::to('devices') }}"><i class="fa fa-home"></i> Devices </a></li>
+                  <li><a><i class="fa fa-server"></i> Main <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ URL::to('countries') }}">Countries</a></li>
+                      <li><a href="{{ URL::to('servers') }}">Servers</a></li>
+                      <li><a href="{{ URL::to('users') }}">Users</a></li>
+                      <li><a href="{{ URL::to('devices') }}">Devices</a></li>
+                      <li><a href="{{ URL::to('plans') }}">Plans</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-file-text-o"></i> Extra <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ URL::to('pages') }}">Pages</a></li>
+                    </ul>
+                  </li>
                   <li><a><i class="fa fa-bar-chart-o"></i> Reports <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ URL::to('sessionlogs') }}">Sessions</a></li>
+                      <li><a href="{{ URL::to('sessionlogs') }}">Subscriptions</a></li>
                     </ul>
                   </li>
-                  <li><a href="#"><i class="fa fa-home"></i> Subscriptions </a></li>
-                  <li><a href="#"><i class="fa fa-home"></i> Languages </a></li>
-                  <li><a href="#"><i class="fa fa-home"></i> Servers </a></li>
-                  <li><a href="#"><i class="fa fa-home"></i> Settings </a></li>
+                  <li><a><i class="fa fa-cogs"></i> Settings <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ URL::to('languages') }}">Languages</a></li>
+                    </ul>
+                  </li>
                 </ul>
               </div>
- 
             </div>
             <!-- /sidebar menu -->
 

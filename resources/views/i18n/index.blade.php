@@ -1,7 +1,7 @@
 @extends('main')
 
-@section('title','| Countries')
-@section('subtitletitle','Countries')
+@section('title','| Languages')
+@section('subtitletitle','Languages')
 
 @section('main_content')
           <div class="">
@@ -25,31 +25,8 @@
                     
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
-                            <label for="name">Name * :</label>
-                            <input type="text" id="name" class="form-control" name="name" required placeholder="Name">
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="form-group">
-                            <label for="shortcode">Image * :</label>
-                            <input type="text" id="image" class="form-control" name="image" required placeholder="Image">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="form-group">
-                            <label for="name">Image Code * :</label>
-                            <input type="text" id="name" class="form-control" name="image_code" required placeholder="Image Code">
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="form-group">
-                            <label for="shortcode">Premium * :</label>
-                            <select name="premium" class="form-control">
-                                <option value="">Select</option>
-                                <option value="0">No</option>
-                                <option value="1">Yes</option>
-                            </select>
+                            <label for="name">Code * :</label>
+                            <input type="text" name="code" required placeholder="Name" class="form-control">
                             </div>
                         </div>
 
@@ -82,22 +59,14 @@
                     <thead>
                     <tr>
                         <th style="width:25px;"><input type="checkbox" name="c1" value="dontcount" id="check-all" class="flat"></th>
-                        <th>Name</th>
-                        <th>Image</th>
-                        <th>Image Code</th>
-                        <th>Sort</th>
-                        <th>Premium</th>
+                        <th>Code</th>
                         <th>Active</th>
                     </tr>
                     </thead>
                     <thead>
                     <tr>
                         <td id="nosearch"></td>
-                        <td>Name</td>
-                        <td>Image</td>
-                        <td>Image Code</td>
-                        <td>Sort</td>
-                        <td>Premium</td>
+                        <td>Code</td>
                         <td>Active</td>
                     </tr>
                     </thead>
@@ -108,11 +77,7 @@
                         <td>
                             <input value="{{ $data->id }}" type="checkbox" name="table_records[]" class="flat">
                         </td>
-                        <td>{{ $data->name }}</td>
-                        <td>{{ $data->image }}</td>
-                        <td>{{ $data->image_code }}</td>
-                        <td>{{ $data->sort }}</td>
-                        <td>{{ $data->premium === 1 ? 'Yes' : 'No' }}</td>
+                        <td>{{ $data->code }}</td>
                         <td>{{ $data->active === 1 ? 'Yes' : 'No'}}</td>
                     </tr>
                     @endforeach
@@ -122,7 +87,6 @@
 
                 <!-- include modals !-->
                 @include('includes.modal')
-                
                 
                 </div>
             </div>

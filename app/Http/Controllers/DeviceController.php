@@ -41,7 +41,7 @@ class DeviceController extends Controller
     {
         if ($id == "") {
             return [
-            'vpnusername' => 'required|unique:devices|max:240',
+            'vpnusername' => 'required|max:240|unique:devices',
             'vpnpassword' => 'required|max:240',
             'mac' => array(
                 'required',

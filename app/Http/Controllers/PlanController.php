@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Server;
-use App\Countrie;
+use App\Plan;
+use App\I18n;
 use Custom;
 use Validator;
-class ServerController extends Controller
+
+class PlanController extends Controller
 {
     private $custom;
 
     public function __construct() {
         $this->custom = new Custom;
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -23,11 +23,11 @@ class ServerController extends Controller
     public function index()
     {
         //
-        $servers = Server::all();
-        $countries = Countrie::all();
-        $datas['datas'] = $servers;
-        $datas['countries'] = $countries; 
-        return view('server.index',$datas);
+        $plans = Plan::all();
+        $datas['datas'] = $plans;
+        $i18ns = I18n::all();
+        $datas['i18ns'] = $i18ns;
+        return view('plan.index',$datas);
     }
 
     /**
@@ -44,22 +44,23 @@ class ServerController extends Controller
     {
         if ($id == "") {
             return [
-            'name' => 'required|max:60|unique:servers',
-            'server_ip' => 'required|max:45|unique:servers',
-            'file_type' => 'required|min:3|max:3',
-            'file' => 'required',
-            'countrie_id' => 'required',
-            'premium' => 'required',
+            'name' => 'required|max:240',
+            'description' => 'required|max:240',
+            'duration' => 'required|numeric',
+            'amount' => 'required|numeric',
+            'points' => 'required|numeric',
+            'active' => 'required',
             ];
         }
         else if ($id != "") {
             return [
-            'name' => 'required|max:60|unique:servers,name,'.$id,
-            'server_ip' => 'required|max:45|unique:servers,server_ip,'.$id,
-            'file_type' => 'required|min:3|max:3',
-            'file' => 'required',
-            'countrie_id' => 'required',
-            'premium' => 'required',
+            'name' => 'required|max:240',
+            'description' => 'required|max:240',
+            'duration' => 'required|numeric',
+            'amount' => 'required|numeric',
+            'points' => 'required|numeric',
+            'sort' => 'required|numeric',
+            'active' => 'required',
             ];
         }
     }
@@ -81,29 +82,32 @@ class ServerController extends Controller
             return response()->json($data);
         }
         else {
-            $server = new Server;
-            $server->name = $request->name;
-            $server->server_ip = $request->server_ip;
-            $server->file_type = $request->file_type;
-            $server->file = $request->file;
-            $server->countrie_id = $request->countrie_id;
-            $server->sort = $this->custom->lastsort('servers');;
-            $server->premium  = $request->premium;
-            $server->active = 0;
-            if ($server->save()) {
-                $htmldata[] = $server->name;
-                $htmldata[] = $request->server_ip;
-                $htmldata[] = $server->file_type;
-                $htmldata[] = $server->file;
-                $htmldata[] = $server->Countrie->name;
-                $htmldata[] = $server->sort;
-                $htmldata[] = ($server->premium) ? 'Yes' : 'No';
-                $htmldata[] = ($server->active) ? 'Yes' : 'No';
+            $option[] = 'i18n_id';
+            $option[] = '=';
+            $option[] = $request->i18n_id;
+            $plan = new Plan;
+            $plan->i18n_id = $request->i18n_id;
+            $plan->name = $request->name;
+            $plan->description = $request->description;
+            $plan->duration = $request->duration;
+            $plan->amount = $request->amount;
+            $plan->points = $request->points;
+            $plan->sort = $this->custom->lastsort('plans',$option);
+            $plan->active  = $request->active;
+            if ($plan->save()) {
+                $htmldata[] = $plan->I18n->code;
+                $htmldata[] = $plan->name;
+                $htmldata[] = $plan->description;
+                $htmldata[] = $plan->duration;
+                $htmldata[] = $plan->amount;
+                $htmldata[] = $plan->points;
+                $htmldata[] = $plan->sort;
+                $htmldata[] = ($plan->active) ? 'Yes' : 'No';
 
                 $data['success'] = true;
                 $data['type'] = 'Add';
-                $data['id'] = $server->id;
-                $data['htmldata'] = $this->custom->htmldata($htmldata,$server->id);
+                $data['id'] = $plan->id;
+                $data['htmldata'] = $this->custom->htmldata($htmldata,$plan->id);
                 return response()->json($data);
             }
             else {
@@ -123,9 +127,9 @@ class ServerController extends Controller
     public function show($id)
     {
         //
-        $server = Server::find($id);
-        $datas['data'] = $server;
-        return view('server.delete',$datas);
+        $plan = Plan::find($id);
+        $datas['data'] = $plan;
+        return view('plan.delete',$datas);
     }
 
     /**
@@ -137,11 +141,11 @@ class ServerController extends Controller
     public function edit($id)
     {
         //
-        $server = Server::find($id);
-        $Countires = Countrie::all();
-        $datas['data'] = $server;
-        $datas['countries'] = $Countires;
-        return view('server.edit',$datas);
+        $plan = Plan::find($id);
+        $i18ns = I18n::all();
+        $datas['data'] = $plan;
+        $datas['i18ns'] = $i18ns;
+        return view('plan.edit',$datas);
     }
 
     /**
@@ -161,29 +165,29 @@ class ServerController extends Controller
             $data['messages'] = $validator->errors();
             return response()->json($data);
         }
-        else {
-            $server = Server::find($id);
-            $server->name = $request->name;
-            $server->server_ip = $request->server_ip;
-            $server->file_type = $request->file_type;
-            $server->file = $request->file;
-            $server->countrie_id = $request->countrie_id;
-            $server->sort  = $request->sort;
-            $server->premium  = $request->premium;
-            $server->active  = $request->active;
-            if ($server->save()) {
-                $htmldata[] = $this->custom->htmldata("",$server->id,'edit');
-                $htmldata[] = $server->name;
-                $htmldata[] = $server->server_ip;
-                $htmldata[] = $server->file_type;
-                $htmldata[] = $server->file;
-                $htmldata[] = $server->countrie->name;
-                $htmldata[] = $server->sort;
-                $htmldata[] = ($server->premium) ? 'Yes' : 'No';
-                $htmldata[] = ($server->active) ? 'Yes' : 'No';
+        else {     
+            $plan = Plan::find($id);
+            $plan->i18n_id = $request->i18n_id;
+            $plan->name = $request->name;
+            $plan->description = $request->description;
+            $plan->duration = $request->duration;
+            $plan->amount = $request->amount;
+            $plan->points  = $request->points;
+            $plan->sort  = $request->sort;
+            $plan->active  = $request->active;
+            if ($plan->save()) {
+                $htmldata[] = $this->custom->htmldata("",$plan->id,'edit');
+                $htmldata[] = $plan->I18n->code;
+                $htmldata[] = $plan->name;
+                $htmldata[] = $plan->description;
+                $htmldata[] = $plan->duration;
+                $htmldata[] = $plan->amount;
+                $htmldata[] = $plan->points;
+                $htmldata[] = $plan->sort;
+                $htmldata[] = ($plan->active) ? 'Yes' : 'No';
                 $data['success'] = true;
                 $data['type'] = 'Edit';
-                $data['id'] = $server->id;
+                $data['id'] = $plan->id;
                 $data['htmldata'] = $htmldata;
                 return response()->json($data);
             }
@@ -193,7 +197,6 @@ class ServerController extends Controller
                 return response()->json($data);
             }
         }
-
     }
 
     /**
@@ -205,8 +208,8 @@ class ServerController extends Controller
     public function destroy($id)
     {
         //
-        $server = Server::findOrFail($id);
-       if ($server->delete()) {
+        $plan = Plan::findOrFail($id);
+       if ($plan->delete()) {
             $data['success'] = true;
             $data['type'] = 'Delete';
             return response()->json($data);

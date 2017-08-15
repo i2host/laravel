@@ -21,3 +21,7 @@ Route::resource('/users', 'UserController');
 Route::resource('/devices', 'DeviceController');
 Route::resource('/devicesusers', 'DeviceuserController');
 Route::resource('/sessionlogs', 'SessionlogController');
+Route::resource('/languages', 'I18nController');
+Route::resource('/plans', 'PlanController');
+Route::resource('/pages', 'PageController');
+Route::resource('/subscriptions', 'SubscriptionController');
