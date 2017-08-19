@@ -12,6 +12,7 @@
 */
 
 
+Auth::routes();
 
 Route::prefix('admin')->group(function() {
     Route::get('/login','Auth\AdminLoginController@showLoginForm')->name('admin.login');
@@ -30,6 +31,5 @@ Route::prefix('admin')->group(function() {
     Route::post('/upload','Admin\MainController@upload')->name('admin.upload.submit');
     Route::get('/','Admin\MainController@index')->name('admin.dashboard');
 });
-Auth::routes();
-Route::get('/', 'HomeController@index')->name('home');
-#Route::get('/admin', 'AdminController@index')->name('home');
+
+Route::get('/home', 'HomeController@index')->name('home');

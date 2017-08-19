@@ -13,6 +13,7 @@ class ServerController extends Controller
     private $custom;
 
     public function __construct() {
+        $this->middleware('auth:admin');
         $this->custom = new Custom;
     }
 

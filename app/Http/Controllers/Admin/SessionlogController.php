@@ -9,10 +9,9 @@ use App\Sessionlog;
 class SessionlogController extends Controller
 {
 
-    #public function sessionlogs() {
-    #    $sessionlogs = DB::table('sessionlogs')->get();
-    #    return $sessionlogs;
-    #}
+    public function __construct() {
+        $this->middleware('auth:admin');
+    }
     /**
      * Display a listing of the resource.
      *
