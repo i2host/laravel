@@ -30,6 +30,10 @@ class CreateUsersTable extends Migration
 			$table->smallInteger('code')->nullable();
 			$table->smallInteger('expired')->nullable();
 			$table->longText('note')->nullable();
+            $table->string('stripe_id')->nullable();
+            $table->string('card_brand')->nullable();
+            $table->string('card_last_four')->nullable();
+            $table->timestamp('trial_ends_at')->nullable();
 			$table->smallInteger('premium');			
 			$table->smallInteger('active');
             $table->timestamps();

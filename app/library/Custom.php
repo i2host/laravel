@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 class Custom {
 
+
     public function htmldata($htmldata,$id,$type="") {
 
         if ($type=="") {

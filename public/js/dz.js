@@ -32,6 +32,11 @@ addform.parsley().on('field:validated', function() {
 });
 /* add form ajax End */
 
+$('#date').datetimepicker({
+    format:'YYYY-MM-DD HH:MM:ss',
+});
+
+$('#choice').select2();
 
 function submitforms(str="",type="",formfile="") {
 	var statusarr;
