@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
 
-class MainController extends Controller
+class DashboardController extends Controller
 {
     //
     public function __construct()

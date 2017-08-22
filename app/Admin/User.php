@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Admin;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -31,7 +31,7 @@ class User extends Authenticatable
     //
     public function devices()
     {
-        return $this->belongsToMany('App\Device');
+        return $this->belongsToMany('App\Admin\Device');
     }
 
 }

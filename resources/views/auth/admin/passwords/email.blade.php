@@ -1,6 +1,6 @@
-@extends('user.layouts.app')
+@extends('admin.main')
 
-@section('content')
+@section('main_content')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -13,7 +13,7 @@
                         </div>
                     @endif
 
-                    <form class="form-horizontal" method="POST" action="{{ route('password.email') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('admin.password.email') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">

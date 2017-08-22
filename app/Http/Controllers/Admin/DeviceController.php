@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Device;
+use App\Admin\Device;
 use Custom;
 use Validator;
 
@@ -50,7 +50,7 @@ class DeviceController extends Controller
                 'regex:/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/',
                 'unique:devices'
             ),
-            'type' => 'required|min:6|max:100',
+            'type' => 'required|min:3|max:100',
             'model' => 'required',
             'os_version' => array(
                 'required',
@@ -61,7 +61,6 @@ class DeviceController extends Controller
                 'regex:/^[0-9.]+$/'
             ),
             'pin' => 'required|unique:devices',
-            'note' => 'required',
             'active' => 'required',
             ];
         }
@@ -74,7 +73,7 @@ class DeviceController extends Controller
                 'regex:/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/',
                 'unique:devices,mac,'.$id
             ),
-            'type' => 'required|min:6|max:100',
+            'type' => 'required|min:3|max:100',
             'model' => 'required',
             'os_version' => array(
                 'required',
@@ -85,7 +84,6 @@ class DeviceController extends Controller
                 'regex:/^[0-9.]+$/'
             ),
             'pin' => 'required|unique:devices,pin,'.$id,
-            'note' => 'required',
             'active' => 'required',
             ];
         }

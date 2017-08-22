@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,6 +8,6 @@ class Server extends Model
 {
     //
     public function countrie() {
-        return $this->belongsTo('App\Countrie');
+        return $this->belongsTo('App\Admin\Countrie');
     }
 }

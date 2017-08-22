@@ -33,17 +33,6 @@
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-12">
 			<div class="form-group">
-			<label>Languages * :</label>
-			<select name="i18n_id" class="form-control">
-				<option value="">Select</option>
-				@foreach ($i18ns as $i18n)
-				<option {{ $i18n->id == $data->i18n_id ? 'selected' : ''  }} value="{{ $i18n->id }}">{{ $i18n->code }}</option>
-				@endforeach
-			</select>
-			</div>
-		</div>
-		<div class="col-lg-6 col-md-6 col-sm-12">
-			<div class="form-group">
 			<label>Sort * :</label>
 			<input type="text" name="sort" value="{{ $data->sort }}" placeholder="Sort" required class="form-control">
 			</div>

@@ -78,5 +78,3 @@
 	  <script src="{{ asset('js/rightclick.js') }}"></script>
 	  <script src="{{ asset('js/dz.js') }}"></script>
 	  <script src="{{ asset('js/admin.js') }}"></script>
-  </body>
-</html>

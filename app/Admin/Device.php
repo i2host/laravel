@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,6 +9,6 @@ class Device extends Model
     //
     public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\Admin\User');
     }
 }

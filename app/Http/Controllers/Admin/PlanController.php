@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Plan;
-use App\I18n;
+use App\Admin\Plan;
+use App\Admin\I18n;
 use Custom;
 use Validator;
 
@@ -84,20 +84,15 @@ class PlanController extends Controller
             return response()->json($data);
         }
         else {
-            $option[] = 'i18n_id';
-            $option[] = '=';
-            $option[] = $request->i18n_id;
             $plan = new Plan;
-            $plan->i18n_id = $request->i18n_id;
             $plan->name = $request->name;
             $plan->description = $request->description;
             $plan->duration = $request->duration;
             $plan->amount = $request->amount;
             $plan->points = $request->points;
-            $plan->sort = $this->custom->lastsort('plans',$option);
+            $plan->sort = $this->custom->lastsort('plans');
             $plan->active  = $request->active;
             if ($plan->save()) {
-                $htmldata[] = $plan->I18n->code;
                 $htmldata[] = $plan->name;
                 $htmldata[] = $plan->description;
                 $htmldata[] = $plan->duration;
@@ -169,7 +164,6 @@ class PlanController extends Controller
         }
         else {     
             $plan = Plan::find($id);
-            $plan->i18n_id = $request->i18n_id;
             $plan->name = $request->name;
             $plan->description = $request->description;
             $plan->duration = $request->duration;
@@ -179,7 +173,6 @@ class PlanController extends Controller
             $plan->active  = $request->active;
             if ($plan->save()) {
                 $htmldata[] = $this->custom->htmldata("",$plan->id,'edit');
-                $htmldata[] = $plan->I18n->code;
                 $htmldata[] = $plan->name;
                 $htmldata[] = $plan->description;
                 $htmldata[] = $plan->duration;

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Server;
-use App\Countrie;
+use App\Admin\Server;
+use App\Admin\Countrie;
 use Custom;
 use Validator;
 class ServerController extends Controller

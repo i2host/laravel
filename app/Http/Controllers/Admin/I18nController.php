@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\I18n;
+use App\Admin\I18n;
 use Custom;
 use Validator;
 class I18nController extends Controller
@@ -72,9 +72,11 @@ class I18nController extends Controller
         else {
             $i18n = new I18n;
             $i18n->code = $request->code;
+            $i18n->main = $request->main;
             $i18n->active  = 0;
             if ($i18n->save()) {
                 $htmldata[] = $i18n->code;
+                $htmldata[] = ($i18n->main) ? 'Yes' : 'No';
                 $htmldata[] = ($i18n->active) ? 'Yes' : 'No';
 
                 $data['success'] = true;
@@ -139,10 +141,12 @@ class I18nController extends Controller
         else {
             $i18n = I18n::find($id);
             $i18n->code = $request->code;
+            $i18n->main = $request->main;
             $i18n->active  = $request->active;
             if ($i18n->save()) {
                 $htmldata[] = $this->custom->htmldata("",$i18n->id,'edit');
                 $htmldata[] = $i18n->code;
+                $htmldata[] = ($i18n->main) ? 'Yes' : 'No';
                 $htmldata[] = ($i18n->active) ? 'Yes' : 'No';
                 $data['success'] = true;
                 $data['type'] = 'Edit';

@@ -30,6 +30,16 @@
                             </div>
                         </div>
 
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                            <label>Main Language * :</label>
+                            <select name="default" class="form-control">
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                            </div>
+                        </div>
+
                         <div class="col-md-12 col-lg-12">
                         <button type="submit" class="btn btn-default">Add</button>
                         </div>
@@ -60,6 +70,7 @@
                     <tr>
                         <th style="width:25px;"><input type="checkbox" name="c1" value="dontcount" id="check-all" class="flat"></th>
                         <th>Code</th>
+                        <th>Main</th>
                         <th>Active</th>
                     </tr>
                     </thead>
@@ -67,6 +78,7 @@
                     <tr>
                         <td id="nosearch"></td>
                         <td>Code</td>
+                        <td>Main</td>
                         <td>Active</td>
                     </tr>
                     </thead>
@@ -78,6 +90,7 @@
                             <input value="{{ $data->id }}" type="checkbox" name="table_records[]" class="flat">
                         </td>
                         <td>{{ $data->code }}</td>
+                        <td>{{ $data->main === 1 ? 'Yes' : 'No'}}</td>
                         <td>{{ $data->active === 1 ? 'Yes' : 'No'}}</td>
                     </tr>
                     @endforeach

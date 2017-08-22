@@ -16,7 +16,7 @@ class Devices extends Migration
         //
         Schema::create('devices', function (Blueprint $table) {
             $table->increments('id');
-            $table->unique('vpnusername',240);
+            $table->string('vpnusername',240)->unique();
             $table->string('vpnpassword',240);
             $table->macAddress('mac')->unique();
             $table->string('os_version');

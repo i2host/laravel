@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\User;
+use App\Admin\User;
 use Custom;
 use Validator;
 
@@ -162,6 +162,8 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
+        if ($request->username == "")
+        unset($request->username);
         $validator = Validator::make($request->all(), $this->rules($id));
         if ($validator->fails()) {
             $data['success'] = false;
@@ -173,7 +175,7 @@ class UserController extends Controller
             $user = User::find($id);
             $user->email = $request->email;
             if ($request->username != "")
-            $user->username  = $request->username;
+                $user->username  = $request->username;
             if ($request->password != "")
                 $user->password = Hash::make($request->password);
             $user->name = $request->name;

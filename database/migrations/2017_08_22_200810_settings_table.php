@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ServerType extends Migration
+class SettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class ServerType extends Migration
      */
     public function up()
     {
-        //
-		Schema::table('servers', function (Blueprint $table) {
-			$table->string('file_type', 100)->after('file'); 
-		});
+        Schema::create('settings', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -26,9 +26,6 @@ class ServerType extends Migration
      */
     public function down()
     {
-        //
-		Schema::table('servers', function (Blueprint $table) {
-            $table->dropColumn('file_type');
-		});
+        Schema::dropIfExists('settings');
     }
 }

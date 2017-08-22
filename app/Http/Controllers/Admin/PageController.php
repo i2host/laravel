@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\page;
-use App\I18n;
+use App\Admin\page;
+use App\Admin\I18n;
 use Custom;
 use Validator;
 class PageController extends Controller

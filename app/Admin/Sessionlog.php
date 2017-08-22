@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,12 +9,12 @@ class Sessionlog extends Model
 
     public function device()
     {
-        return $this->belongsTo('App\Device');
+        return $this->belongsTo('App\Admin\Device');
     }
 
     public function server()
     {
-        return $this->belongsTo('App\Server','server_ip','server_ip');
+        return $this->belongsTo('App\Admin\Server','server_ip','server_ip');
     }
 
 }

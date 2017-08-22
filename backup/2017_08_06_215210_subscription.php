@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Subscriptionlogs extends Migration
+class Subscriptions extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class Subscriptionlogs extends Migration
     public function up()
     {
         //
-         Schema::create('subscriptions', function (Blueprint $table) {
+        Schema::create('subscriptions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
             $table->string('name');

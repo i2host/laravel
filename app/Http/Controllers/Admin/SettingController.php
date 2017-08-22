@@ -2,16 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Admin\Sessionlog;
+use App\Http\Controllers\Controller;
 
-class SessionlogController extends Controller
+class SettingController extends Controller
 {
-
-    public function __construct() {
-        $this->middleware('auth:admin');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -19,9 +14,7 @@ class SessionlogController extends Controller
      */
     public function index()
     {
-        $sessionlogs = Sessionlog::all();
-        $datas['datas'] = $sessionlogs;
-        return view('admin.sessionlog.index',$datas);
+        //
     }
 
     /**
@@ -54,9 +47,6 @@ class SessionlogController extends Controller
     public function show($id)
     {
         //
-        $sessionlogs = Sessionlog::find($id);
-        $datas['data'] = $sessionlogs;
-        return view('admin.sessionlog.delete',$datas);
     }
 
     /**
@@ -68,11 +58,6 @@ class SessionlogController extends Controller
     public function edit($id)
     {
         //
-        $sessionlogs = Sessionlog::find($id);
-        $sessions = Sessionlog::where('device_id', $sessionlogs->device_id)->get()->sortByDesc('id');
-        $datas['data'] = $sessionlogs;
-        $datas['sessions'] = $sessions;
-        return view('admin.sessionlog.edit',$datas);
     }
 
     /**
@@ -85,11 +70,6 @@ class SessionlogController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $data['success'] = true;
-        $data['type'] = 'Edit';
-        $data['id'] = '';
-        $data['htmldata'] = '';
-        return response()->json($data);
     }
 
     /**
@@ -101,16 +81,5 @@ class SessionlogController extends Controller
     public function destroy($id)
     {
         //
-        $device = Sessionlog::findOrFail($id);
-       if ($device->delete()) {
-            $data['success'] = true;
-            $data['type'] = 'Delete';
-            return response()->json($data);
-        }
-        else {
-            $data['success'] = false;
-            $data['type'] = 'Delete';
-            return response()->json($data);
-        }
     }
 }

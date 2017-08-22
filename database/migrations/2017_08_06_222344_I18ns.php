@@ -17,6 +17,7 @@ class I18ns extends Migration
          Schema::create('i18ns', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
+            $table->string('main');
             $table->tinyInteger('active');
             $table->timestamps();
         });
