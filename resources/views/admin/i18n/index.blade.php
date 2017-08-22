@@ -25,7 +25,7 @@
                     
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
-                            <label for="name">Code * :</label>
+                            <label>Code * :</label>
                             <input type="text" name="code" required placeholder="Name" class="form-control">
                             </div>
                         </div>
@@ -33,7 +33,7 @@
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
                             <label>Main Language * :</label>
-                            <select name="default" class="form-control">
+                            <select name="main" class="form-control">
                                 <option value="0">No</option>
                                 <option value="1">Yes</option>
                             </select>

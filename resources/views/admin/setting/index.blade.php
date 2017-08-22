@@ -1,7 +1,7 @@
 @extends('admin.main')
 
-@section('title','| Languages')
-@section('subtitletitle','Languages')
+@section('title','| Settings')
+@section('subtitletitle','Settings')
 
 @section('main_content')
           <div class="">
@@ -25,18 +25,15 @@
                     
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
-                            <label for="name">Code * :</label>
-                            <input type="text" name="code" required placeholder="Name" class="form-control">
+                            <label>Name * :</label>
+                            <input type="text" name="name" required placeholder="Name" class="form-control">
                             </div>
                         </div>
 
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
-                            <label>Main Language * :</label>
-                            <select name="main" class="form-control">
-                                <option value="0">No</option>
-                                <option value="1">Yes</option>
-                            </select>
+                            <label>Value * :</label>
+                            <input type="text" name="value" required placeholder="Value" class="form-control">
                             </div>
                         </div>
 
@@ -69,17 +66,15 @@
                     <thead>
                     <tr>
                         <th style="width:25px;"><input type="checkbox" name="c1" value="dontcount" id="check-all" class="flat"></th>
-                        <th>Code</th>
-                        <th>Main</th>
-                        <th>Active</th>
+                        <th>Name</th>
+                        <th>Value</th>
                     </tr>
                     </thead>
                     <thead>
                     <tr>
                         <td id="nosearch"></td>
-                        <td>Code</td>
-                        <td>Main</td>
-                        <td>Active</td>
+                        <td>Name</td>
+                        <td>Value</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -89,9 +84,8 @@
                         <td>
                             <input value="{{ $data->id }}" type="checkbox" name="table_records[]" class="flat">
                         </td>
-                        <td>{{ $data->code }}</td>
-                        <td>{{ $data->main === 1 ? 'Yes' : 'No'}}</td>
-                        <td>{{ $data->active === 1 ? 'Yes' : 'No'}}</td>
+                        <td>{{ $data->name }}</td>
+                        <td>{{ $data->value }}</td>
                     </tr>
                     @endforeach
                     <!--end while !-->

@@ -56,4 +56,8 @@ class Custom {
         return $lastsort;
     }
 
+    public function settings() {
+        
+    }
+
 }

@@ -16,11 +16,8 @@ class Settings extends Migration
         //
         Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('site_url');
-            $table->string('upload_folder');
-            $table->string('current_version');
-            $table->string('min_version');
-            $table->tinyInteger('api_log');
+            $table->string('name');
+            $table->string('value');
             $table->timestamps();
         });
     }

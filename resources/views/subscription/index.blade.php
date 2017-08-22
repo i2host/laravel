@@ -23,7 +23,7 @@
         </div>
         <div class="panel-body">
             <div class="col-md-12">
-                <form action="{{ route('subscriptions-order') }}" data-parsley-validate method="post" id="payment-form">
+                <form action="{{ route('subscriptions.order') }}" data-parsley-validate method="post" id="payment-form">
                 @if ($message = Session::get('success'))
 
                 <div class="alert alert-success alert-block">

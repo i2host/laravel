@@ -70,6 +70,9 @@ class I18nController extends Controller
             return response()->json($data);
         }
         else {
+            if ($request->main)
+            I18n::where('main', 1)->update(['main' => 0]);
+
             $i18n = new I18n;
             $i18n->code = $request->code;
             $i18n->main = $request->main;
@@ -139,6 +142,7 @@ class I18nController extends Controller
             return response()->json($data);
         }
         else {
+            I18n::where('main', 1)->update(['main' => 0]);
             $i18n = I18n::find($id);
             $i18n->code = $request->code;
             $i18n->main = $request->main;
